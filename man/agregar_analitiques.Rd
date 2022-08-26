@@ -14,15 +14,17 @@ agregar_analitiques(
 )
 }
 \arguments{
-\item{dt}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{dt}{La base de dades a on tenim :idp(identificacio Pacient),dat(data del dia de l'analítica:20080101[1-1-2008],val(valor de l'analítica),cod(ex:GLICADA)).}
 
-\item{bd.dindex}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{bd.dindex}{Data a on fem el tall.}
 
-\item{finestra.dies}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{finestra.dies}{Finestra d'observacio a partir de bd.index.}
 
-\item{sufix}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{sufix}{Valor del codi, o dies que han passat.}
 
-\item{fun}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{fun}{Per defecte Last, la data mes proxima a la bd.index.}
+
+\item{camp}{El camp a on fem l'agreggacio.}
 }
 \value{
 Taula agregada analitiques
@@ -31,6 +33,10 @@ Taula agregada analitiques
 Retorna tibble (data.table) amb els valors analitiques en temps previ en dies.
 }
 \examples{
-u=rnorm(1000,100,12)
-
+idp=rep(1:5,each=5)
+dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)
+val=round(rnorm(50,5,1.9),digits=2)
+cod="GLICADA"
+dt_variables<-data.frame(idp=idp,dat=dat,val=val,cod=cod)
+dtagr_variables<-agregar_analitiques(dt=dt_variables,bd.dindex=20081231,finestra.dies = c(-365,0))
 }

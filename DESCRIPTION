@@ -12,17 +12,15 @@ VignetteBuilder: knitr
 RoxygenNote: 7.2.1
 Depends:
     R (>= 2.15),
-    qtl (>= 1.30-4)
+    qtl (>= 1.30-4),
+    dplyr
 Imports:
     dplyr,
     tidyr,
     rlang,
-    readxl,
-    Hmisc,
-    stringr,
-    foreign,
-    tibble,
-    data.table
+    lubridate,
+    purrr,
+    ggplot2
 Suggests:
     knitr,
     devtools,

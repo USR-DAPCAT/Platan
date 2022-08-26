@@ -12,11 +12,12 @@ afegir_dataindex<-function(dt_historic,bd.dindex="20161231") {
   # dt_historic=dt
   # bd.dindex=bd.dindex
 
+  dt_historic=dt_variables
+
   # Si es una constant generar una columna constant
   if (is.numeric(bd.dindex) | is.character(bd.dindex)){
     rrr<-dt_historic %>%
-      dplyr::mutate(dtindex=bd.dindex) %>%
-      data.table
+      dplyr::mutate(dtindex=bd.dindex)%>%data.table
 
   }
 

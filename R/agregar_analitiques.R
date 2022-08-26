@@ -1,15 +1,21 @@
-#' @title Agregar prescripcions.
+#' @title Agregar analitiques.
 #' @description Retorna tibble (data.table) amb els valors analitiques en temps previ en dies.
-#' @param dt xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param bd.dindex xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param finestra.dies xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param sufix xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param fun xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#' @param dt La base de dades a on tenim :idp(identificacio Pacient),dat(data del dia de l'analítica:20080101[1-1-2008],val(valor de l'analítica),cod(ex:GLICADA)).
+#' @param bd.dindex Data a on fem el tall.
+#' @param finestra.dies Finestra d'observacio a partir de bd.index.
+#' @param sufix Valor del codi, o dies que han passat.
+#' @param fun Per defecte Last, la data mes proxima a la bd.index.
+#' @param camp El camp a on fem l'agreggacio.
 #' @return Taula agregada analitiques
 #' @export agregar_analitiques
 #' @examples
-#' u=rnorm(1000,100,12)
-#'
+#' idp=rep(1:5,each=5)
+#' dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)
+#' val=round(rnorm(50,5,1.9),digits=2)
+#' cod="GLICADA"
+#' dt_variables<-data.frame(idp=idp,dat=dat,val=val,cod=cod)
+#' dtagr_variables<-agregar_analitiques(dt=dt_variables,bd.dindex=20081231,finestra.dies = c(-365,0))
+
 agregar_analitiques<-function(dt=ANALITIQUES,bd.dindex="20161231",finestra.dies=c(-Inf,Inf),sufix = c(".valor", ".dies"),fun="last",camp="cod"){
 
   # dt =dt_temp
