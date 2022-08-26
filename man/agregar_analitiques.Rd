@@ -2,7 +2,7 @@
 % Please edit documentation in R/agregar_analitiques.R
 \name{agregar_analitiques}
 \alias{agregar_analitiques}
-\title{Agregar prescripcions.}
+\title{Agregar analitiques.}
 \usage{
 agregar_analitiques(
   dt = ANALITIQUES,
