@@ -17,7 +17,9 @@ afegir_dataindex<-function(dt_historic,bd.dindex="20161231") {
   # dt_historic=dt
   # bd.dindex=bd.dindex
 
-  dt_historic=dt_variables
+  #dt_historic=dt_variables
+  #bd.dindex="20161231"
+
 
   # Si es una constant generar una columna constant
   if (is.numeric(bd.dindex) | is.character(bd.dindex)){
@@ -33,7 +35,7 @@ afegir_dataindex<-function(dt_historic,bd.dindex="20161231") {
     rrr<-dt_historic %>%
       dplyr::inner_join(bd.dindex, by="idp") %>%
       rename(dtindex=tidyselect::last_col()) %>% ## Renomenar dtindex (última columna de bd.index)
-      data.table
+      data.table::data.table
   }
 
   rrr
