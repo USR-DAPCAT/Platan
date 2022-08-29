@@ -26,6 +26,7 @@ agregar_analitiques<-function(dt=ANALITIQUES,bd.dindex="20161231",finestra.dies=
   # fun="first"
   # camp="cod"
   #### Afegir + data index (+dtindex) en l'historic de variables
+  #rm(list=ls())
 
   print("Afegint dt.index")
 
