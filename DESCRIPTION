@@ -20,7 +20,8 @@ Imports:
     rlang,
     lubridate,
     purrr,
-    ggplot2
+    ggplot2,
+    data.table
 Suggests:
     knitr,
     devtools,

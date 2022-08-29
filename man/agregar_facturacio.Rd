@@ -17,23 +17,23 @@ agregar_facturacio(
 )
 }
 \arguments{
-\item{dt}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{dt}{Base de dades de Fármac Facturats (idp,cod-A10BB01-,dat-200801,env).}
 
-\item{finestra.dies}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{finestra.dies}{Finestra de dies a partir de la data.index.}
 
-\item{dt.agregadors}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{dt.agregadors}{Catàleg, a on tenim els agregadors a prtir del codi.}
 
-\item{bd.dindex}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{bd.dindex}{Data on comencem a contar els dies}
 
-\item{prefix}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{prefix}{Prefix dels agregadors, normalment FF.}
 
-\item{camp_agregador}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{camp_agregador}{Camp agregador.}
 
-\item{agregar_data}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{agregar_data}{Ens diu la data del fàrmac dins la finestra.}
 
-\item{acumular}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{acumular}{Null.}
 
-\item{cataleg_mana}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{cataleg_mana}{Catàleg}
 }
 \value{
 Taula agregada facturacio
@@ -43,7 +43,7 @@ Retorna tibble (data.table) amb la suma d'envasos o data primera dispensació di
 }
 \examples{
 idp=rep(1:5,each=5)
-dat=rep(c(200801,200702,200603,200504,200405),times=5)
+dat=rep(c(200801,200801,200801,200801,200802),times=5)
 cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
 env=rep(1:5,each=5)
 dt_facturacio<-data.frame(idp=idp,cod=cod,dat=dat,env=env)
@@ -51,12 +51,16 @@ dt_facturacio<-data.frame(idp=idp,cod=cod,dat=dat,env=env)
 domini="farmacs_facturats"
 cod=c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07")
 agr_Farmac=c("Sulfonilureas","Biguanidas","Tiazolidinadiones","Biguanidas","Antibioticos")
-cataleg<-data.frame(domini=domini,cod=cod,agr_Farmac=agr_Farmac)
+dt_cataleg<-data.frame(domini=domini,cod=cod,agr_Farmac=agr_Farmac)
 
-dtagr_facturacio<-agregar_facturacio(dt=dt_facturacio,bd.dindex=20080120,finestra.dies=c(-90,0),
- dt.agregadors=select(dt_cataleg,cod,agr=agr_Farmac),
- prefix="FF.",
- camp_agregador="agr",
- agregar_data=T,
- cataleg_mana = T)
+dtagr_facturacio<-agregar_facturacio(
+dt=dt_facturacio,
+bd.dindex=20080120,
+finestra.dies=c(-90,0),
+dt.agregadors=select(dt_cataleg,cod,agr=agr_Farmac),
+prefix="FF.",
+camp_agregador="agr",
+agregar_data=T,
+cataleg_mana = T,
+acumular=NULL)
 }

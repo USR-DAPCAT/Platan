@@ -1,19 +1,19 @@
 #' @title Agregar facturacio.
 #' @description Retorna tibble (data.table) amb la suma d'envasos o data primera dispensació dins d'una finestra de temps per idp-dataindex
-#' @param dt xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param finestra.dies xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param dt.agregadors xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param bd.dindex xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param prefix xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param camp_agregador xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param agregar_data xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param acumular xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param cataleg_mana xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#' @param dt Base de dades de Fármac Facturats (idp,cod-A10BB01-,dat-200801,env).
+#' @param finestra.dies Finestra de dies a partir de la data.index.
+#' @param dt.agregadors Catàleg, a on tenim els agregadors a prtir del codi.
+#' @param bd.dindex Data on comencem a contar els dies
+#' @param prefix  Prefix dels agregadors, normalment FF.
+#' @param camp_agregador Camp agregador.
+#' @param agregar_data Ens diu la data del fàrmac dins la finestra.
+#' @param acumular Null.
+#' @param cataleg_mana Catàleg
 #' @return Taula agregada facturacio
 #' @export agregar_facturacio
 #' @examples
 #' idp=rep(1:5,each=5)
-#' dat=rep(c(200801,200702,200603,200504,200405),times=5)
+#' dat=rep(c(200801,200801,200801,200801,200802),times=5)
 #' cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
 #' env=rep(1:5,each=5)
 #' dt_facturacio<-data.frame(idp=idp,cod=cod,dat=dat,env=env)
@@ -21,16 +21,28 @@
 #' domini="farmacs_facturats"
 #' cod=c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07")
 #' agr_Farmac=c("Sulfonilureas","Biguanidas","Tiazolidinadiones","Biguanidas","Antibioticos")
-#' cataleg<-data.frame(domini=domini,cod=cod,agr_Farmac=agr_Farmac)
+#' dt_cataleg<-data.frame(domini=domini,cod=cod,agr_Farmac=agr_Farmac)
 #'
-#' dtagr_facturacio<-agregar_facturacio(dt=dt_facturacio,bd.dindex=20080120,finestra.dies=c(-90,0),
-#'  dt.agregadors=select(dt_cataleg,cod,agr=agr_Farmac),
-#'  prefix="FF.",
-#'  camp_agregador="agr",
-#'  agregar_data=T,
-#'  cataleg_mana = T)
+#' dtagr_facturacio<-agregar_facturacio(
+#' dt=dt_facturacio,
+#' bd.dindex=20080120,
+#' finestra.dies=c(-90,0),
+#' dt.agregadors=select(dt_cataleg,cod,agr=agr_Farmac),
+#' prefix="FF.",
+#' camp_agregador="agr",
+#' agregar_data=T,
+#' cataleg_mana = T,
+#' acumular=NULL)
 
-agregar_facturacio<-function(dt=PRESCRIPCIONS,finestra.dies=c(-90,0),dt.agregadors=CATALEG,bd.dindex="20161231",prefix="FD.",camp_agregador="agr", agregar_data=F,acumular=NULL,cataleg_mana=F){
+agregar_facturacio<-function(dt=PRESCRIPCIONS,
+                             finestra.dies=c(-90,0),
+                             dt.agregadors=CATALEG,
+                             bd.dindex="20161231",
+                             prefix="FD.",
+                             camp_agregador="agr",
+                             agregar_data=F,
+                             acumular=NULL,
+                             cataleg_mana=F){
 
   # dt=dt_farmacs_facturats
   # bd.dindex=dt_index
@@ -50,6 +62,7 @@ agregar_facturacio<-function(dt=PRESCRIPCIONS,finestra.dies=c(-90,0),dt.agregado
   # prefix="FDD1."
   # agregar_data=F
   # acumular="DD_env"
+  #rm(list=ls())
 
   agregador_sym<-sym(camp_agregador)
   ## Filtrar CATALEG per agrupador per camp_agregador
