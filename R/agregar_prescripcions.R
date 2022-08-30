@@ -1,7 +1,7 @@
 #' @title Agregar prescripcions.
 #' @description Retorna tibble (data.table) amb el temps de prescripció en una finestra o primera data per idp-dataindex / primera data
 #' @param dt Base de dades de Fármac Prescrips (idp,cod-A10BB01-,dat-200801).
-#' @param bd.dindex xData on comencem a contar els dies.
+#' @param bd.dindex Data on comencem a contar els dies.
 #' @param dt.agregadors Catàleg, a on tenim els agregadors a prtir del codi.
 #' @param prefix Prefix dels agregadors, normalment FP.
 #' @param finestra.dies Finestra de dies a partir de la data.index.
@@ -16,22 +16,22 @@
 #' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
 #' dbaixa=rep(c(20080215,20080215,20080215,20080215,20080315),times=5)
 #' cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
-#' dt_facturacio<-data.frame(idp=idp,cod=cod,dat=dat,dbaixa=dbaixa)
+#' dt_prescripcions<-data.frame(idp=idp,cod=cod,dat=dat,dbaixa=dbaixa)
 #'
 #' domini="farmacs_prescrits"
 #' cod=c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07")
 #' agr_Farmac=c("Sulfonilureas","Biguanidas","Tiazolidinadiones","Biguanidas","Antibioticos")
 #' dt_cataleg<-data.frame(domini=domini,cod=cod,agr_Farmac=agr_Farmac)
 #'
-#' dtagr_facturacio<-agregar_prescripcions(
-#' dt=dt_facturacio,
+#' dtagr_prescripcions<-agregar_prescripcions(
+#' dt=dt_prescripcions,
 #' bd.dindex=20080120,
 #' finestra.dies=c(-90,0),
 #' dt.agregadors=select(dt_cataleg,cod,agr=agr_Farmac),
 #' prefix="FP.",
 #' camp_agregador="agr",
-#' agregar_data=T,
-#' cataleg_mana = T,
+#' agregar_data=TRUE,
+#' cataleg_mana =TRUE,
 #' acumular=NULL)
 agregar_prescripcions<-function(dt=PRESCRIPCIONS,
                                 bd.dindex=20161231,

@@ -30,8 +30,8 @@
 #' dt.agregadors=select(dt_cataleg,cod,agr=agr_Farmac),
 #' prefix="FF.",
 #' camp_agregador="agr",
-#' agregar_data=T,
-#' cataleg_mana = T,
+#' agregar_data=TRUE,
+#' cataleg_mana=TRUE,
 #' acumular=NULL)
 
 agregar_facturacio<-function(dt=PRESCRIPCIONS,

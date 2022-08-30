@@ -16,21 +16,21 @@ agregar_problemes(
 )
 }
 \arguments{
-\item{dt}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{dt}{Base de dades dels Diàgnostics (idp,cod-E11.5-,dat-20150309).}
 
-\item{bd.dindex}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{bd.dindex}{Data on comencem a contar els dies.}
 
-\item{dt.agregadors}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{dt.agregadors}{Catàleg, a on tenim els agregadors a prtir del codi.}
 
-\item{finestra.dies}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{finestra.dies}{Finestra de dies a partir de la data.index.}
 
-\item{prefix}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{prefix}{Prefix dels agregadors, normalment DG.}
 
-\item{camp_agregador}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{camp_agregador}{Camp agregador.}
 
-\item{keep.code}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{keep.code}{Guarda els codis.}
 
-\item{cataleg_mana}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{cataleg_mana}{Catàleg.}
 }
 \value{
 Taula agregada de problemes
@@ -39,6 +39,17 @@ Taula agregada de problemes
 Afegeix data-index Dinamica o / Constant si no existeix
 }
 \examples{
-u=rnorm(1000,100,12)
+idp=rep(1:5,each=5)
+dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
+cod=rep(c("E11","E11","I25","I50.9","I10"),times=5)
+dt_diagnostics<-data.frame(idp=idp,cod=cod,dat=dat)
+
+domini="diagnostics"
+cod=c("E11","I25","150.9","I10")
+agr=c("DM2","ISQ.CRONICA","INS.CARD","HTA")
+dt_cataleg<-data.frame(domini=domini,cod=cod,agr=agr)
+dtagr_diagnostics<-agregar_problemes(select(dt_diagnostics,idp,cod,dat),bd.dindex = 20100101,
+dt.agregadors=select(dt_cataleg,cod,agr),finestra.dies=c(-Inf,0),prefix = "DG.",cataleg_mana=TRUE)
+
 
 }

@@ -1,17 +1,28 @@
 #' @title Agregar problemes de salut.
 #' @description Afegeix data-index Dinamica o / Constant si no existeix
-#' @param dt xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param bd.dindex xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param dt.agregadors xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param finestra.dies xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param prefix xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param camp_agregador xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param keep.code xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param cataleg_mana xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#' @param dt Base de dades dels Diàgnostics (idp,cod-E11.5-,dat-20150309).
+#' @param bd.dindex Data on comencem a contar els dies.
+#' @param dt.agregadors Catàleg, a on tenim els agregadors a prtir del codi.
+#' @param finestra.dies Finestra de dies a partir de la data.index.
+#' @param prefix Prefix dels agregadors, normalment DG.
+#' @param camp_agregador Camp agregador.
+#' @param keep.code Guarda els codis.
+#' @param cataleg_mana Catàleg.
 #' @return Taula agregada de problemes
 #' @export agregar_problemes
 #' @examples
-#' u=rnorm(1000,100,12)
+#' idp=rep(1:5,each=5)
+#' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
+#' cod=rep(c("E11","E11","I25","I50.9","I10"),times=5)
+#' dt_diagnostics<-data.frame(idp=idp,cod=cod,dat=dat)
+#'
+#' domini="diagnostics"
+#' cod=c("E11","I25","150.9","I10")
+#' agr=c("DM2","ISQ.CRONICA","INS.CARD","HTA")
+#' dt_cataleg<-data.frame(domini=domini,cod=cod,agr=agr)
+#' dtagr_diagnostics<-agregar_problemes(select(dt_diagnostics,idp,cod,dat),bd.dindex = 20100101,
+#' dt.agregadors=select(dt_cataleg,cod,agr),finestra.dies=c(-Inf,0),prefix = "DG.",cataleg_mana=TRUE)
+#'
 #'
 agregar_problemes<-function(dt=PROBLEMES,bd.dindex="20161231",dt.agregadors=CATALEG,finestra.dies=c(-Inf,0),prefix="DG.",camp_agregador="agr",keep.code=F,cataleg_mana=F) {
 

@@ -14,17 +14,17 @@ agregar_solapaments_gaps(
 )
 }
 \arguments{
-\item{dt}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{dt}{Base de dades de fàrmacs}
 
-\item{id}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{id}{Identificador}
 
-\item{datainici}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{datainici}{Data Inici Fàrmac}
 
-\item{datafinal}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{datafinal}{Data Final Fàrmac}
 
-\item{gap}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{gap}{GAPS}
 
-\item{sel}{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}
+\item{sel}{Selecccionem}
 }
 \value{
 Retorna dades amb : id, datainici i datafi amb menys registres, havent eliminat solapaments i gaps (discontinuitat petita)
@@ -33,6 +33,11 @@ Retorna dades amb : id, datainici i datafi amb menys registres, havent eliminat 
 Historic de farmacs.Elimina solapaments i discontinuitats petites i retorna dades sense discontinuitats ni solapaments.
 }
 \examples{
-u=rnorm(1000,100,12)
+idp=rep(1:5,each=5)
+dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
+dbaixa=rep(c(20080215,20080215,20080215,20080215,20080315),times=5)
+cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
+dt_prescripcions<-data.frame(idp=idp,cod=cod,dat=dat,dbaixa=dbaixa)
 
+gaps<-agregar_solapaments_gaps(dt=dt_prescripcions,id="idp",datainici="dat",datafinal="dbaixa",gap=2,sel=F)
 }

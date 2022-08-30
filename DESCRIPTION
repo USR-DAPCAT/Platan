@@ -5,15 +5,16 @@ Title: conté les funcions necessàries,per aplanar una base de dades mèdica.
 Author: Ray Puig i Jordi Real
 Maintainer: Ray Puig <raypuig@gmail.com>
 Description: Platan és un Package que conté les funcions necessàries,per aplanar una base de dades per la investigació mèdica.
-License: GLP-3
+License: GLP-2
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
 RoxygenNote: 7.2.1
 Depends:
     R (>= 2.15),
-    qtl (>= 1.30-4),
-    dplyr
+    dplyr,
+    data.table,
+    stringr
 Imports:
     dplyr,
     tidyr,

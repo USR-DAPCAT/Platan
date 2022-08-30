@@ -5,7 +5,7 @@
 #'
 #' @docType package
 #'
-#' @author Ray Puig i Jordi Real\email{-raypuig@gmail.com-}
+#' @author  Jordi Real i Ray Puig\email{-raypuig@gmail.com-}
 #'
 #' @name Platan
 #'
