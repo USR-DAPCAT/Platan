@@ -83,7 +83,7 @@ dt_cataleg
 
 
 fitxer=c("dt_diagnostics","dt_farmacs_facturats","dt_farmacs_prescrits","dt_variables")
-domini=c("diagnostics","farmacs_facturats","farmacs_prescrits","dt_variables")
+domini=c("diagnostics","farmacs_facturats","farmacs_prescrits","variables")
 Finestra1=c(-Inf,-Inf,-Inf,-Inf)
 Finestra2=c(0,0,0,0)
 camp=c("agr","agr_Farmac","agr_Farmac","cod")
@@ -97,4 +97,6 @@ dt=dt_index,
 cataleg=dt_cataleg,
 parametres=dt_parametres)
 
+
+Taula_plana
 }

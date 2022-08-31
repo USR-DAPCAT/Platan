@@ -65,7 +65,7 @@
 #'
 #'
 #' fitxer=c("dt_diagnostics","dt_farmacs_facturats","dt_farmacs_prescrits","dt_variables")
-#' domini=c("diagnostics","farmacs_facturats","farmacs_prescrits","dt_variables")
+#' domini=c("diagnostics","farmacs_facturats","farmacs_prescrits","variables")
 #' Finestra1=c(-Inf,-Inf,-Inf,-Inf)
 #' Finestra2=c(0,0,0,0)
 #' camp=c("agr","agr_Farmac","agr_Farmac","cod")
@@ -205,7 +205,7 @@ Generar_taula_plana<-function(dt=dt_index,
     # Cataleg
     cat_farmacs <-cataleg %>% filter(domini%in% c("farmacs_facturats","farmacs","farmacs_prescrits"))
 
-    # Generar dades historic en funciÃ³ del nom fitxer
+    # Generar dades historic en funciO del nom fitxer
     nom_fitxer<-  par_farmacs %>% distinct(fitxer) %>% pull()
     nom_fitxer<-set_names(nom_fitxer,nom_fitxer)
 

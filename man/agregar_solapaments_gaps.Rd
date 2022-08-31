@@ -2,7 +2,7 @@
 % Please edit documentation in R/agregar_solapaments_gaps.R
 \name{agregar_solapaments_gaps}
 \alias{agregar_solapaments_gaps}
-\title{Agrega solapamentsamb gaps}
+\title{Agrega solapaments amb gaps}
 \usage{
 agregar_solapaments_gaps(
   dt = dades,

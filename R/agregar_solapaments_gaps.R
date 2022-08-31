@@ -1,4 +1,4 @@
-#' @title Agrega solapamentsamb gaps
+#' @title Agrega solapaments amb gaps
 #' @description Historic de farmacs.Elimina solapaments i discontinuitats petites i retorna dades sense discontinuitats ni solapaments.
 #' @param dt Base de dades de fàrmacs
 #' @param id Identificador
