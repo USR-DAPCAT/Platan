@@ -1,17 +1,100 @@
 #' @title Generar la taula plana, a partir dels parametres dels agregadors
 #' @description Taula plana
-#' @param dt xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param cataleg xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-#' @param parametres xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#' @param dt  data.índex
+#' @param cataleg Catàleg
+#' @param parametres Paràmetres
 #' @return Retorna una taula plana a partir dels parametres dels agregadors
 #' @export Generar_taula_plana
 #' @examples
-#' u=rnorm(1000,100,12)
+#' idp=c(1,2,3,4,5)
+#' sex=c("H","H","D","D","H")
+#' edat=c(23,67,90,16,100)
+#' dt_poblacio<-data.frame(idp=idp,sex=sex,edat=edat)
 #'
+#' idp=rep(1:5,each=5)
+#' dat=rep(c(200801,200801,200801,200801,200802),times=5)
+#' cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
+#' env=rep(1:5,each=5)
+#' dt_farmacs_facturats<-data.frame(idp=idp,cod=cod,dat=dat,env=env)
+#' dt_farmacs_facturats<-as_tibble(dt_farmacs_facturats)
+#'
+#' idp=rep(1:5,each=5)
+#' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
+#' dbaixa=rep(c(20080215,20080215,20080215,20080215,20080315),times=5)
+#' cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
+#' dt_farmacs_prescrits<-data.frame(idp=idp,cod=cod,dat=dat,dbaixa=dbaixa)
+#' dt_farmacs_prescrits<-as_tibble(dt_farmacs_prescrits)
+#'
+#' idp=rep(1:5,each=5)
+#' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
+#' cod=rep(c("E11","E11","I25","I50.9","I10"),times=5)
+#' dt_diagnostics<-data.frame(idp=idp,cod=cod,dat=dat)
+#' dt_diagnostics<-as_tibble(dt_diagnostics)
+#'
+#' idp=rep(1:5,each=5)
+#' dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)
+#' val=round(rnorm(50,5,1.9),digits=2)
+#' cod="GLICADA"
+#' dt_variables<-data.frame(idp=idp,dat=dat,val=val,cod=cod)
+#' dt_variables<-as_tibble(dt_variables)
+#'
+#' idp=rep(1:5,each=5)
+#' dtindex=rep(c(20220101,20220101,20220101,20220101,20220101),times=5)
+#' dt_index<-data.frame(idp=idp,dtindex=dtindex)%>% as_tibble()%>%
+#' transmute(idp,dtindex=as.character(dtindex))
+
+#'
+#' domini="farmacs_facturats"
+#' cod=c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07")
+#' agr_Farmac=c("Sulfonilureas","Biguanidas","Tiazolidinadiones","Biguanidas","Antibioticos")
+#' dt_cataleg1<-data.frame(domini=domini,cod=cod,agr="",agr_Farmac=agr_Farmac)
+#'
+#' domini="farmacs_prescrits"
+#' cod=c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07")
+#' agr_Farmac=c("Sulfonilureas","Biguanidas","Tiazolidinadiones","Biguanidas","Antibioticos")
+#' dt_cataleg2<-data.frame(domini=domini,cod=cod,agr="",agr_Farmac=agr_Farmac)
+#'
+#' domini="diagnostics"
+#' cod=c("E11","I25","150.9","I10")
+#' agr=c("DM2","ISQ.CRONICA","INS.CARD","HTA")
+#' dt_cataleg3<-data.frame(domini=domini,cod=cod,agr=agr,agr_Farmac="")
+#' dt_cataleg<-rbind(dt_cataleg1,dt_cataleg2,dt_cataleg3)
+#' dt_cataleg
+#'
+#'
+#'
+#'
+#' fitxer=c("dt_diagnostics","dt_farmacs_facturats","dt_farmacs_prescrits","dt_variables")
+#' domini=c("diagnostics","farmacs_facturats","farmacs_prescrits","dt_variables")
+#' Finestra1=c(-Inf,-Inf,-Inf,-Inf)
+#' Finestra2=c(0,0,0,0)
+#' camp=c("agr","agr_Farmac","agr_Farmac","cod")
+#' funcio=c("first","first","first","last")
+#' prefix =c("DG.","FF.","FP.","Valor.")
+#' dt_parametres<-data.frame(cbind(fitxer,domini,Finestra1,Finestra2,camp,prefix,funcio))
+#'
+#'
+#' Taula_plana<-Generar_taula_plana(
+#' dt=dt_index,
+#' cataleg=dt_cataleg,
+#' parametres=dt_parametres)
+#'
+#'
+#' Taula_plana
+
 Generar_taula_plana<-function(dt=dt_index,
                               cataleg=dt_cataleg,
                               parametres=dt_parametres,...)
 {
+
+
+  #dt=dt_index
+  #cataleg=dt_cataleg
+  #parametres=dt_parametres
+
+
+  #dt<-dt%>%
+  #transmute(idp,dtindex=as.character(dtindex))
 
   # cataleg=fitxer_cataleg
   # parametres=fitxer_cataleg
@@ -25,19 +108,27 @@ Generar_taula_plana<-function(dt=dt_index,
   # parametres=fitxer_cataleg
   # sheet="parametres"
 
-
+  # dt=dt_temp
+  # cataleg = CATALEG
+  # parametres = here::here("cataleg_codis.xls"),sheet="parametres_2010"
 
   cataleg<-read_conductor(cataleg,col_types="text")
+
   parametres<-read_conductor(parametres,...) %>% filter(!(is.na(fitxer)| is.na(domini)))
-  # parametres<-read_conductor(parametres,sheet="parametres")
+  parametres<-read_conductor(parametres) %>% filter(!(is.na(fitxer)| is.na(domini)))
+
+
+
+  # parametres<-read_conductor(parametres,sheet="parametres_2010")
   # parametres<-read_conductor(fitxer_cataleg,sheet="parametres")
+
 
   # Llegeixo parametres
   # Agrego problemes de salut
   # Capturar: Dades, finestra, camp_agregador i prefix, filtrar cataleg
 
   # Depurar parametres ---------------------------------
-  # en funció de la existencia dels fitxers si no existeixen -----
+  # en funciÃ³ de la existencia dels fitxers si no existeixen -----
   exist_file<-parametres$fitxer %>% set_names(parametres$fitxer) %>%
     map(~exists(.x)) %>% map(~as.integer(.x)) %>%
     unlist() %>% as_tibble()
@@ -55,7 +146,7 @@ Generar_taula_plana<-function(dt=dt_index,
 
   # Data de tall (data o / dtindex o nom de fitxer  -------
   # Generar camp tall si no existeix
-  # Triar arxiu bd.dindex en funció de punt de tall?
+  # Triar arxiu bd.dindex en funciÃ³ de punt de tall?
 
   # Si no existeix crear-lo i posar-hi dataindex
   if(!"tall" %in% colnames(parametres)) parametres<-parametres %>% mutate(tall=deparse(substitute(dt)))
@@ -79,7 +170,7 @@ Generar_taula_plana<-function(dt=dt_index,
                                                     "cmbdh_procediments","cmbdh_diagnostics",
                                                     "cmbdh_procediments_cim10scp","DIAG","derivacions") )
 
-    # Generar dades historic en funció del nom fitxer
+    # Generar dades historic en funciÃ³ del nom fitxer
     nom_fitxer<-  par_problemes %>% distinct(fitxer) %>% pull()
     nom_fitxer<-set_names(nom_fitxer,nom_fitxer)
     dt_historic<-nom_fitxer %>% map_df(~eval(sym(.x)),.id="nom_fitxer") %>% semi_join(dt,by="idp") %>% select(nom_fitxer,idp,cod,dat)
@@ -97,7 +188,8 @@ Generar_taula_plana<-function(dt=dt_index,
              camp_agregador=..5,
              cataleg_mana=..7)
       ) %>%
-      reduce(full_join,by=c("idp","dtindex"))   # Juntar-ho tot
+      reduce(full_join,by=c("idp","dtindex")) %>%   # Juntar-ho tot
+      mutate(dtindex=lubridate::as_date(dtindex) %>% data.to.string)
 
   } else DTAGR_PROBLEMES<-dt
 
@@ -107,13 +199,13 @@ Generar_taula_plana<-function(dt=dt_index,
   par_farmacs<-
     parametres %>%
     filter(domini%in% c("farmacs","farmacs_facturats","facturats"))
-  # Només passar si en parametres existeix
+  # NomÃ©s passar si en parametres existeix
   if (nrow(par_farmacs)>0) {
 
     # Cataleg
     cat_farmacs <-cataleg %>% filter(domini%in% c("farmacs_facturats","farmacs","farmacs_prescrits"))
 
-    # Generar dades historic en funció del nom fitxer
+    # Generar dades historic en funciÃ³ del nom fitxer
     nom_fitxer<-  par_farmacs %>% distinct(fitxer) %>% pull()
     nom_fitxer<-set_names(nom_fitxer,nom_fitxer)
 
@@ -143,13 +235,13 @@ Generar_taula_plana<-function(dt=dt_index,
   # Seleccionar parametres i cataleg
   par_farmacs<- parametres %>% filter(domini %in% c("farmacs_prescrits","prescrits"))
 
-  # Només passar si en parametres existeix
+  # NomÃ©s passar si en parametres existeix
   if (nrow(par_farmacs)>0) {
 
     # Cataleg
     cat_farmacs <-cataleg %>% filter(domini%in% c("farmacs_facturats","farmacs","farmacs_prescrits"))
 
-    # Generar dades historic en funció del nom fitxer
+    # Generar dades historic en funciÃ³ del nom fitxer
     nom_fitxer<-  par_farmacs %>% distinct(fitxer) %>% pull()
     nom_fitxer<-set_names(nom_fitxer,nom_fitxer)
 
@@ -197,7 +289,7 @@ Generar_taula_plana<-function(dt=dt_index,
 
   if (nrow(par_analit_quanti)>0) {
 
-    # Generar dades historic en funció del nom fitxer
+    # Generar dades historic en funciÃ³ del nom fitxer
     nom_fitxer<-  par_analit_quanti %>% distinct(fitxer) %>% pull()
 
     nom_fitxer<-set_names(nom_fitxer,nom_fitxer)
@@ -228,7 +320,7 @@ Generar_taula_plana<-function(dt=dt_index,
 
   if (nrow(par_analit_quali)>0) {
 
-    # Generar dades historic en funció del nom fitxer
+    # Generar dades historic en funciÃ³ del nom fitxer
     nom_fitxer<-  par_analit_quali %>% distinct(fitxer) %>% pull()
 
     nom_fitxer<-set_names(nom_fitxer,nom_fitxer)
@@ -267,6 +359,8 @@ Generar_taula_plana<-function(dt=dt_index,
   dt_temp<-dt %>% select(idp) %>% mutate(temp=1) %>% inner_join(talls,by="temp") %>%
     transmute(idp,dtindex=as.character(dtindex))
 
+  #No existeixen alguns fitxers:dt_farmacs_facturats, dt_farmacs_prescrits
+
   dt<-dt %>% bind_rows(dt_temp) %>% distinct() %>% arrange(idp,dtindex) %>% na.omit()
 
   dt %>%
@@ -277,3 +371,6 @@ Generar_taula_plana<-function(dt=dt_index,
     full_join(DTAGR_ANALITIQUES_char)
 
 }
+
+
+
