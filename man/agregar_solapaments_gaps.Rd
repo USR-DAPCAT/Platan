@@ -14,23 +14,23 @@ agregar_solapaments_gaps(
 )
 }
 \arguments{
-\item{dt}{Base de dades de fàrmacs}
+\item{dt}{Base de dades de farmacs}
 
 \item{id}{Identificador}
 
-\item{datainici}{Data Inici Fàrmac}
+\item{datainici}{Data Inici Farmac}
 
-\item{datafinal}{Data Final Fàrmac}
+\item{datafinal}{Data Final Farmac}
 
 \item{gap}{GAPS}
 
-\item{sel}{Selecccionem}
+\item{sel}{Seleccionem}
 }
 \value{
-Retorna dades amb : id, datainici i datafi amb menys registres, havent eliminat solapaments i gaps (discontinuitat petita)
+Retorna dades amb els gaps (discontinuitat petita)
 }
 \description{
-Historic de farmacs.Elimina solapaments i discontinuitats petites i retorna dades sense discontinuitats ni solapaments.
+Historic de farmacs.Elimina solapaments.
 }
 \examples{
 idp=rep(1:5,each=5)

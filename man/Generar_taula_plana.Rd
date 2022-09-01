@@ -32,11 +32,12 @@ sex=c("H","H","D","D","H")
 edat=c(23,67,90,16,100)
 dt_poblacio<-data.frame(idp=idp,sex=sex,edat=edat)
 
-#bd data índex.
+#bd data Index.
 idp=c(1,2,3,4,5)
 dtindex=c(20220101,20220101,20220101,20220101,20220101)
-dt_index<-data.frame(idp=idp,dtindex=dtindex)\%>\% as_tibble()\%>\%
-transmute(idp,dtindex=as.character(dtindex))
+dt_index<-data.frame(idp=idp,dtindex=dtindex)
+dt_index<-as_tibble(dt_index)
+dt_index$dtindex<-as.character(dt_index$dtindex)
 
 #bd Dianostics:
 idp=rep(1:5,each=5)
@@ -108,5 +109,6 @@ cataleg=dt_cataleg,
 parametres=dt_parametres)
 
 
-Taula_plana\%>\%select(-"y[FALSE, ]")
+Taula_plana<-Taula_plana\%>\%select(-"y[FALSE, ]")
+Taula_plana
 }

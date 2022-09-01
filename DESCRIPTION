@@ -6,32 +6,28 @@ Date: 2022-08-25
 Author: Ray Puig i Jordi Real
 Maintainer: Ray Puig <raypuig@gmail.com>
 Description: Platan és un Package que conté les funcions per aplanar una base de dades per la investigació mèdica.
-License: GLP-3
+License: GPL(>=3)
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
 RoxygenNote: 7.2.1
 Depends:
-    R (>= 2.15),
+    R (>= 3.5.0)
+Imports:
     dplyr,
     data.table,
     stringr,
     purrr,
     readxl,
-    foreign
-Imports:
-    dplyr,
+    foreign,
     tidyr,
     rlang,
     lubridate,
-    purrr,
-    ggplot2,
-    data.table
+    ggplot2
 Suggests:
     knitr,
     devtools,
-    roxygen2,
-    testthat
+    roxygen2
 
 
 

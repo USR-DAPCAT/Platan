@@ -1,12 +1,12 @@
 #' @title Agrega solapaments amb gaps
-#' @description Historic de farmacs.Elimina solapaments i discontinuitats petites i retorna dades sense discontinuitats ni solapaments.
-#' @param dt Base de dades de fàrmacs
+#' @description Historic de farmacs.Elimina solapaments.
+#' @param dt Base de dades de farmacs
 #' @param id Identificador
-#' @param datainici Data Inici Fàrmac
-#' @param datafinal Data Final Fàrmac
+#' @param datainici Data Inici Farmac
+#' @param datafinal Data Final Farmac
 #' @param gap GAPS
-#' @param sel Selecccionem
-#' @return Retorna dades amb : id, datainici i datafi amb menys registres, havent eliminat solapaments i gaps (discontinuitat petita)
+#' @param sel Seleccionem
+#' @return Retorna dades amb els gaps (discontinuitat petita)
 #' @export agregar_solapaments_gaps
 #' @examples
 #' idp=rep(1:5,each=5)
@@ -24,7 +24,7 @@ agregar_solapaments_gaps<-function(dt=dades,id="idp",datainici="data",datafinal=
   # datafinal="datafi"
   # id="idp"
 
-  # Conversió a Sym per evaluació
+  # Conversio a Sym per evaluacio
   datainici_sym<-rlang::sym(datainici)
   datafinal_sym<-rlang::sym(datafinal)
   idp_sym=rlang::sym(id)
@@ -33,7 +33,7 @@ agregar_solapaments_gaps<-function(dt=dades,id="idp",datainici="data",datafinal=
   dt<-dt %>% dplyr::select(idp=!!idp_sym, data=!!datainici_sym,datafi=!!datafinal_sym)%>%
     mutate(data=lubridate::ymd(data),datafi=lubridate::ymd(datafi))
 
-  #filtrem els errors!!!!
+  # filtrem els errors
   origen<-dt
   dt<-dt%>%mutate(error=case_when(datafi<data~1 ,
                                   is.na(data) ~ 1,
@@ -42,13 +42,13 @@ agregar_solapaments_gaps<-function(dt=dades,id="idp",datainici="data",datafinal=
   # Printa errors
   if(sel){
     errors<-dt %>% dplyr::filter(error == 1)
-    warning("ull! aquests són possibles d'errors de dates!,que s'han ELIMINAT!")
+    warning("ull! aquests són possibles d'errors de dates,que s'han ELIMINAT")
   }
   # Filtra
   if (sel) { dt<-dt %>% dplyr::filter(error == 0) }
   if (sel==F) { dt<-dt }
 
-  # 1. Eliminar solapaments [!!!]
+  # 1. Eliminar solapaments
   dt2<-dt %>%
     group_by(idp) %>% arrange(data) %>%
     mutate(indx = c(0, cumsum(as.numeric(lead(data)) >cummax(as.numeric(datafi)+gap))[-n()]))%>%
