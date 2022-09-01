@@ -6,11 +6,27 @@
 #' @return Retorna una taula plana a partir dels parametres dels agregadors
 #' @export Generar_taula_plana
 #' @examples
+#'
+#' #bd Poblacio:
 #' idp=c(1,2,3,4,5)
 #' sex=c("H","H","D","D","H")
 #' edat=c(23,67,90,16,100)
 #' dt_poblacio<-data.frame(idp=idp,sex=sex,edat=edat)
 #'
+#' #bd data índex.
+#' idp=c(1,2,3,4,5)
+#' dtindex=c(20220101,20220101,20220101,20220101,20220101)
+#' dt_index<-data.frame(idp=idp,dtindex=dtindex)%>% as_tibble()%>%
+#' transmute(idp,dtindex=as.character(dtindex))
+#'
+#' #bd Dianostics:
+#' idp=rep(1:5,each=5)
+#' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
+#' cod=rep(c("E11","E11","I25","I50.9","I10"),times=5)
+#' dt_diagnostics<-data.frame(idp=idp,cod=cod,dat=dat)
+#' dt_diagnostics<-as_tibble(dt_diagnostics)
+#'
+#' #bd Farmacs Facturats:
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(200801,200801,200801,200801,200802),times=5)
 #' cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
@@ -18,6 +34,7 @@
 #' dt_farmacs_facturats<-data.frame(idp=idp,cod=cod,dat=dat,env=env)
 #' dt_farmacs_facturats<-as_tibble(dt_farmacs_facturats)
 #'
+#' #bd Farmacs Prescrits:
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
 #' dbaixa=rep(c(20080215,20080215,20080215,20080215,20080315),times=5)
@@ -25,12 +42,7 @@
 #' dt_farmacs_prescrits<-data.frame(idp=idp,cod=cod,dat=dat,dbaixa=dbaixa)
 #' dt_farmacs_prescrits<-as_tibble(dt_farmacs_prescrits)
 #'
-#' idp=rep(1:5,each=5)
-#' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
-#' cod=rep(c("E11","E11","I25","I50.9","I10"),times=5)
-#' dt_diagnostics<-data.frame(idp=idp,cod=cod,dat=dat)
-#' dt_diagnostics<-as_tibble(dt_diagnostics)
-#'
+#' #bd Analítica::(V.Clíniques+V.Analítiques)
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)
 #' val=round(rnorm(50,5,1.9),digits=2)
@@ -38,12 +50,8 @@
 #' dt_variables<-data.frame(idp=idp,dat=dat,val=val,cod=cod)
 #' dt_variables<-as_tibble(dt_variables)
 #'
-#' idp=rep(1:5,each=5)
-#' dtindex=rep(c(20220101,20220101,20220101,20220101,20220101),times=5)
-#' dt_index<-data.frame(idp=idp,dtindex=dtindex)%>% as_tibble()%>%
-#' transmute(idp,dtindex=as.character(dtindex))
-
 #'
+#' #Cataleg:
 #' domini="farmacs_facturats"
 #' cod=c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07")
 #' agr_Farmac=c("Sulfonilureas","Biguanidas","Tiazolidinadiones","Biguanidas","Antibioticos")
@@ -55,15 +63,15 @@
 #' dt_cataleg2<-data.frame(domini=domini,cod=cod,agr="",agr_Farmac=agr_Farmac)
 #'
 #' domini="diagnostics"
-#' cod=c("E11","I25","150.9","I10")
+#' cod=c("E11","I25","I50.9","I10")
 #' agr=c("DM2","ISQ.CRONICA","INS.CARD","HTA")
 #' dt_cataleg3<-data.frame(domini=domini,cod=cod,agr=agr,agr_Farmac="")
 #' dt_cataleg<-rbind(dt_cataleg1,dt_cataleg2,dt_cataleg3)
+#'
 #' dt_cataleg
 #'
 #'
-#'
-#'
+#' #Parametres:
 #' fitxer=c("dt_diagnostics","dt_farmacs_facturats","dt_farmacs_prescrits","dt_variables")
 #' domini=c("diagnostics","farmacs_facturats","farmacs_prescrits","variables")
 #' Finestra1=c(-Inf,-Inf,-Inf,-Inf)
@@ -72,6 +80,7 @@
 #' funcio=c("first","first","first","last")
 #' prefix =c("DG.","FF.","FP.","Valor.")
 #' dt_parametres<-data.frame(cbind(fitxer,domini,Finestra1,Finestra2,camp,prefix,funcio))
+#' dt_parametres
 #'
 #'
 #' Taula_plana<-Generar_taula_plana(
@@ -80,7 +89,7 @@
 #' parametres=dt_parametres)
 #'
 #'
-#' Taula_plana
+#' Taula_plana%>%select(-"y[FALSE, ]")
 
 Generar_taula_plana<-function(dt=dt_index,
                               cataleg=dt_cataleg,
