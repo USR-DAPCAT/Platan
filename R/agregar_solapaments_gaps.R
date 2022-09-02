@@ -14,8 +14,12 @@
 #' dbaixa=rep(c(20080215,20080215,20080215,20080215,20080315),times=5)
 #' cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
 #' dt_prescripcions<-data.frame(idp=idp,cod=cod,dat=dat,dbaixa=dbaixa)
-#'
-#' gaps<-agregar_solapaments_gaps(dt=dt_prescripcions,id="idp",datainici="dat",datafinal="dbaixa",gap=2,sel=F)
+#' gaps<-agregar_solapaments_gaps(dt=dt_prescripcions,
+#' id="idp",
+#' datainici="dat",
+#' datafinal="dbaixa",
+#' gap=2,sel=F)
+
 agregar_solapaments_gaps<-function(dt=dades,id="idp",datainici="data",datafinal="datafi",gap=5,sel=F){
 
   # dt=FX.FACTURATS_PRESCRITS_GRUPS
@@ -42,7 +46,7 @@ agregar_solapaments_gaps<-function(dt=dades,id="idp",datainici="data",datafinal=
   # Printa errors
   if(sel){
     errors<-dt %>% dplyr::filter(error == 1)
-    warning("ull! aquests són possibles d'errors de dates,que s'han ELIMINAT")
+    warning("ull! aquests son possibles d'errors de dates,que s'han ELIMINAT")
   }
   # Filtra
   if (sel) { dt<-dt %>% dplyr::filter(error == 0) }

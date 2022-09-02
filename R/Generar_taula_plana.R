@@ -6,8 +6,7 @@
 #' @return Retorna una taula plana a partir dels parametres dels agregadors
 #' @export Generar_taula_plana
 #' @examples
-#'
-#' #bd Poblacio:
+#  #bd Poblacio:
 #' idp=c(1,2,3,4,5)
 #' sex=c("H","H","D","D","H")
 #' edat=c(23,67,90,16,100)
@@ -17,7 +16,7 @@
 #' idp=c(1,2,3,4,5)
 #' dtindex=c(20220101,20220101,20220101,20220101,20220101)
 #' dt_index<-data.frame(idp=idp,dtindex=dtindex)
-#' dt_index<-as_tibble(dt_index)
+#' dt_index<-tibble::as_tibble(dt_index)
 #' dt_index$dtindex<-as.character(dt_index$dtindex)
 #'
 #' #bd Dianostics:
@@ -25,7 +24,7 @@
 #' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
 #' cod=rep(c("E11","E11","I25","I50.9","I10"),times=5)
 #' dt_diagnostics<-data.frame(idp=idp,cod=cod,dat=dat)
-#' dt_diagnostics<-as_tibble(dt_diagnostics)
+#' dt_diagnostics<-tibble::as_tibble(dt_diagnostics)
 #'
 #' #bd Farmacs Facturats:
 #' idp=rep(1:5,each=5)
@@ -33,7 +32,7 @@
 #' cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
 #' env=rep(1:5,each=5)
 #' dt_farmacs_facturats<-data.frame(idp=idp,cod=cod,dat=dat,env=env)
-#' dt_farmacs_facturats<-as_tibble(dt_farmacs_facturats)
+#' dt_farmacs_facturats<-tibble::as_tibble(dt_farmacs_facturats)
 #'
 #' #bd Farmacs Prescrits:
 #' idp=rep(1:5,each=5)
@@ -41,15 +40,15 @@
 #' dbaixa=rep(c(20080215,20080215,20080215,20080215,20080315),times=5)
 #' cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
 #' dt_farmacs_prescrits<-data.frame(idp=idp,cod=cod,dat=dat,dbaixa=dbaixa)
-#' dt_farmacs_prescrits<-as_tibble(dt_farmacs_prescrits)
+#' dt_farmacs_prescrits<-tibble::as_tibble(dt_farmacs_prescrits)
 #'
-#' #bd Analítica::(V.Clíniques+V.Analítiques)
+#' #bd Analitica::(V.Cliniques+V.Analitiques)
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)
 #' val=round(rnorm(50,5,1.9),digits=2)
 #' cod="GLICADA"
 #' dt_variables<-data.frame(idp=idp,dat=dat,val=val,cod=cod)
-#' dt_variables<-as_tibble(dt_variables)
+#' dt_variables<-tibble::as_tibble(dt_variables)
 #'
 #'
 #' #Cataleg:
@@ -123,16 +122,15 @@ Generar_taula_plana<-function(dt=dt_index,
   # cataleg = CATALEG
   # parametres = here::here("cataleg_codis.xls"),sheet="parametres_2010"
 
+
   cataleg<-read_conductor(cataleg,col_types="text")
 
-  parametres<-read_conductor(parametres,...) %>% filter(!(is.na(fitxer)| is.na(domini)))
-  parametres<-read_conductor(parametres) %>% filter(!(is.na(fitxer)| is.na(domini)))
 
-
+  parametres<-read_conductor(parametres,...)%>%dplyr::filter(!(is.na(fitxer)| is.na(domini)))
+  #parametres<-read_conductor(parametres) %>% filter(!(is.na(fitxer)| is.na(domini)))
 
   # parametres<-read_conductor(parametres,sheet="parametres_2010")
   # parametres<-read_conductor(fitxer_cataleg,sheet="parametres")
-
 
   # Llegeixo parametres
   # Agrego problemes de salut
@@ -140,8 +138,7 @@ Generar_taula_plana<-function(dt=dt_index,
 
   # Depurar parametres ---------------------------------
   # en funciÃ³ de la existencia dels fitxers si no existeixen -----
-  exist_file<-parametres$fitxer %>% set_names(parametres$fitxer) %>%
-    map(~exists(.x)) %>% map(~as.integer(.x)) %>%
+  exist_file<-parametres$fitxer %>% set_names(parametres$fitxer) %>%purrr::map(~exists(.x)) %>% purrr::map(~as.integer(.x)) %>%
     unlist() %>% as_tibble()
   parametres<-parametres %>% bind_cols(exist_file) %>% rename("exist"=value)
 

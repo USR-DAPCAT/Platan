@@ -10,12 +10,8 @@ read_conductor(fitxer, ...)
 \item{fitxer}{fitxer que el convertirem a tibble.}
 }
 \value{
-Tibble
+una taula tibble
 }
 \description{
-Read conductor file different formats txt o rds o xls xlsx o data_frame tibble
-}
-\examples{
-Read conductor file different formats txt o rds o xls xlsx o data_frame tibble
-
+Llegir el fitxer conductor de diferents formats txt o rds o xls xlsx o data_frame tibble
 }

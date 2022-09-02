@@ -38,6 +38,9 @@ dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
 dbaixa=rep(c(20080215,20080215,20080215,20080215,20080315),times=5)
 cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
 dt_prescripcions<-data.frame(idp=idp,cod=cod,dat=dat,dbaixa=dbaixa)
-
-gaps<-agregar_solapaments_gaps(dt=dt_prescripcions,id="idp",datainici="dat",datafinal="dbaixa",gap=2,sel=F)
+gaps<-agregar_solapaments_gaps(dt=dt_prescripcions,
+id="idp",
+datainici="dat",
+datafinal="dbaixa",
+gap=2,sel=F)
 }

@@ -1,11 +1,9 @@
 #' @title read_conductor
-#' @description Read conductor file different formats txt o rds o xls xlsx o data_frame tibble
+#' @description Llegir el fitxer conductor de diferents formats txt o rds o xls xlsx o data_frame tibble
 #' @param fitxer fitxer que el convertirem a tibble.
-#' @return Tibble
+#' @return una taula tibble
 #' @export read_conductor
-#' @examples
-#' Read conductor file different formats txt o rds o xls xlsx o data_frame tibble
-#'
+
 read_conductor<-function(fitxer,...) {
   # fitxer<-here::here(fitxer_cataleg)
   # Si el fitxer es un data_frame saltar
@@ -17,7 +15,7 @@ read_conductor<-function(fitxer,...) {
 
     if (stringr::str_detect(fitxer,"\\.txt$")){
 
-      dt<-data.table::fread(fitxer) %>% as_tibble()
+      dt<-data.table::fread(fitxer) %>% tidyr:: as_tibble()
 
     } else if (stringr::str_detect(fitxer,"\\.rds$")) {
 

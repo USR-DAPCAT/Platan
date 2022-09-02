@@ -41,7 +41,11 @@
 #' dt_variables<-data.frame(idp=idp,dat=dat,val=val,cod=cod)
 #' saveRDS(dt_variables, file=here::here("data","dt_variables.rds"))
 #'
-#' MOSTRA<-generar_mostra_fitxers(directori="data",fitxer_poblacio="dt_poblacio.rds",mida_mostra=3,prefix="test_",directori_test="mostra",idp="idp")
+#' MOSTRA<-generar_mostra_fitxers(directori="data",
+#' fitxer_poblacio="dt_poblacio.rds",
+#' mida_mostra=3,prefix="test_",
+#' directori_test="mostra",
+#' idp="idp")
 #'
 #' test_dt_diagnostics<-readRDS(here::here("data/mostra","test_dt_diagnostics.rds"))
 #' test_dt_diagnostics

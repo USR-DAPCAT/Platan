@@ -23,11 +23,21 @@ Imports:
     tidyr,
     rlang,
     lubridate,
-    ggplot2
-Suggests:
+    ggplot2,
+    here,
     knitr,
+    tibble,
+    tidyselect,
+    htmlwidgets,
+    compareGroups,
+    magrittr
+Suggests:
     devtools,
     roxygen2
+
+
+
+
 
 
 
