@@ -139,7 +139,7 @@ Generar_taula_plana<-function(dt=dt_index,
   # Depurar parametres ---------------------------------
   # en funciÃ³ de la existencia dels fitxers si no existeixen -----
   exist_file<-parametres$fitxer %>% set_names(parametres$fitxer) %>%purrr::map(~exists(.x)) %>% purrr::map(~as.integer(.x)) %>%
-    unlist() %>% as_tibble()
+    unlist() %>%tibble:: as_tibble()
   parametres<-parametres %>% bind_cols(exist_file) %>% rename("exist"=value)
 
   arxius_inexistens<-parametres %>% filter(exist==0) %>% pull(fitxer) %>% unique()

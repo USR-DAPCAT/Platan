@@ -30,7 +30,7 @@ agregar_analitiques<-function(dt=ANALITIQUES,bd.dindex="20161231",finestra.dies=
 
   print("Afegint dt.index")
 
-  dt<-dt %>% select(idp,dat,cod:=!!sym(camp),val)
+  dt<-dt %>%dplyr::select(idp,dat,cod:=!!rlang::sym(camp),val)
 
   dt<-afegir_dataindex(dt,bd.dindex)
 
@@ -52,7 +52,7 @@ agregar_analitiques<-function(dt=ANALITIQUES,bd.dindex="20161231",finestra.dies=
   print ("Seleccionant unic registre per variable-id")
 
   ##  Filtro valors sense missings i calculo dies entre ddates
-  paco<- dt %>% filter(val!=-9) %>% dplyr::filter(!is.na(val)) %>%      # elimino missings
+  paco<- dt %>% dplyr::filter(val!=-9) %>% dplyr::filter(!is.na(val)) %>%      # elimino missings
     dplyr::mutate(dies=dtindex -dat)                                    # Calculo els dies fins data index
 
   ### Generar funcions agregacio valor i data (dies que han passat)
@@ -86,18 +86,18 @@ agregar_analitiques<-function(dt=ANALITIQUES,bd.dindex="20161231",finestra.dies=
   ### Agregacio per idp
   paco1<-paco %>%
     dplyr::group_by(idp,dtindex,cod) %>%                                    # Agrupo
-    mutate(val=funcioresum(val,dies)) %>%                   # Resum de valor
+    dplyr::mutate(val=funcioresum(val,dies)) %>%                   # Resum de valor
     dplyr::slice(1L) %>%                                    # Unica fila per idp+cod
     dplyr::ungroup()  %>%
-    select(idp,cod,dtindex,val)
+    dplyr::select(idp,cod,dtindex,val)
 
   ### Agregacio de dies per idp
   paco2<-paco %>%
     dplyr::group_by(idp,dtindex,cod) %>%                    # Agrupo
-    mutate(dies=funcioresum_dies(val,dies)) %>%             # Resum de dies
+    dplyr::mutate(dies=funcioresum_dies(val,dies)) %>%             # Resum de dies
     dplyr::slice(1L) %>%                                    # Unica fila per idp+cod
     dplyr::ungroup() %>%
-    select(idp,cod,dtindex,dies)
+    dplyr::select(idp,cod,dtindex,dies)
 
   paco<-paco1 %>% dplyr::left_join(paco2,by=c("idp","cod","dtindex"))
 
@@ -115,7 +115,7 @@ agregar_analitiques<-function(dt=ANALITIQUES,bd.dindex="20161231",finestra.dies=
   print ("Join: valor+dies")
 
   # JOINT Valors i dies
-  analitiques.idp<-full_join(analitiques.valor, analitiques.dies, by=c("idp","dtindex"),suffix = sufix)
+  analitiques.idp<-dplyr::full_join(analitiques.valor, analitiques.dies, by=c("idp","dtindex"),suffix = sufix)
 
   analitiques.idp
 
