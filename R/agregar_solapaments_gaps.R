@@ -18,11 +18,11 @@
 #' id="idp",
 #' datainici="dat",
 #' datafinal="dbaixa",
-#' gap=2,sel=F)
+#' gap=2,sel=FALSE)
 #'
 #' gaps
 
-agregar_solapaments_gaps<-function(dt=dades,id="idp",datainici="data",datafinal="datafi",gap=5,sel=F){
+agregar_solapaments_gaps<-function(dt=dades,id="idp",datainici="data",datafinal="datafi",gap=5,sel=FALSE){
 
   # dt=FX.FACTURATS_PRESCRITS_GRUPS
   # gap=60

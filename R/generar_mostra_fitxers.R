@@ -5,6 +5,7 @@
 #' @param mida_mostra     Mida de la mostra
 #' @param prefix          Prefix de la mostra
 #' @param directori_test  Directori Test
+#' @param llavor          llavor aleatoria
 #' @return La mostra
 #' @export generar_mostra_fitxers
 #' @examples
@@ -12,53 +13,54 @@
 #' sex=c("H","H","D","D","H")
 #' edat=c(23,67,90,16,100)
 #' dt_poblacio<-data.frame(idp=idp,sex=sex,edat=edat)
-#' saveRDS(dt_poblacio, file=here::here("data","dt_poblacio.rds"))
+#' saveRDS(dt_poblacio, file=("data/dt_poblacio.rds"))
 #'
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(200801,200801,200801,200801,200802),times=5)
 #' cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
 #' env=rep(1:5,each=5)
 #' dt_facturacio<-data.frame(idp=idp,cod=cod,dat=dat,env=env)
-#' saveRDS(dt_facturacio, file=here::here("data","dt_facturacio.rds"))
+#' saveRDS(dt_facturacio, file=("data/dt_facturacio.rds"))
 #'
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
 #' dbaixa=rep(c(20080215,20080215,20080215,20080215,20080315),times=5)
 #' cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
 #' dt_prescripcions<-data.frame(idp=idp,cod=cod,dat=dat,dbaixa=dbaixa)
-#' saveRDS(dt_prescripcions, file=here::here("data","dt_prescripcions.rds"))
+#' saveRDS(dt_prescripcions, file=("data/dt_prescripcions.rds"))
 #'
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
 #' cod=rep(c("E11","E11","I25","I50.9","I10"),times=5)
 #' dt_diagnostics<-data.frame(idp=idp,cod=cod,dat=dat)
-#' saveRDS(dt_diagnostics, file=here::here("data","dt_diagnostics.rds"))
+#' saveRDS(dt_diagnostics, file=("data/dt_diagnostics.rds"))
 #'
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)
 #' val=round(rnorm(50,5,1.9),digits=2)
 #' cod="GLICADA"
 #' dt_variables<-data.frame(idp=idp,dat=dat,val=val,cod=cod)
-#' saveRDS(dt_variables, file=here::here("data","dt_variables.rds"))
+#' saveRDS(dt_variables, file=("data/dt_variables.rds"))
 #'
 #' MOSTRA<-generar_mostra_fitxers(directori="data",
 #' fitxer_poblacio="dt_poblacio.rds",
 #' mida_mostra=3,prefix="test_",
 #' directori_test="mostra",
-#' idp="idp",llavor=1234)
+#' idp="idp")
 #'
-#' readRDS(here::here("data/mostra","test_dt_diagnostics.rds"))
-#' readRDS(here::here("data/mostra","test_dt_facturacio.rds"))
-#' readRDS(here::here("data/mostra","test_dt_prescripcions.rds"))
-#' readRDS(here::here("data/mostra","test_dt_variables.rds"))
-#' readRDS(here::here("data/mostra","test_dt_poblacio.rds"))
+#' readRDS("data/mostra/test_dt_diagnostics.rds")
+#' readRDS("data/mostra/test_dt_facturacio.rds")
+#' readRDS("data/mostra/test_dt_poblacio.rds")
+#' readRDS("data/mostra/test_dt_prescripcions.rds")
+#' readRDS("data/mostra/test_dt_variables.rds")
 #'
 generar_mostra_fitxers<-function(directori="data",
                                  fitxer_poblacio="METPLUS_entregable_poblacio_20181126_190346.rds",
                                  mida_mostra=10000,
                                  prefix="test",
-                                 directori_test="mostra",idp="idp",
-                                 llavor=1234) {
+                                 directori_test="mostra",
+                                 idp="idp",
+                                 llavor="1234") {
 
   # directori="dades"
   # fitxer_poblacio="pacients.txt"
@@ -73,10 +75,10 @@ generar_mostra_fitxers<-function(directori="data",
   LLEGIR.fitxer_poblacio<-function(n,directori,fitxer) {
 
     if (stringr::str_detect(fitxer,"\\.txt$")){
-      dt<-data.table::fread(directori %>% here::here(fitxer)) %>%tibble:: as_tibble() %>% dplyr::sample_n(size=n)}
+      dt<-data.table::fread(directori %>% here::here(fitxer)) %>% as_tibble() %>% dplyr::sample_n(size=n)}
 
     if (stringr::str_detect(fitxer,"\\.rds$")){
-      dt<-readRDS(directori %>% here::here(fitxer)) %>%tibble:: as_tibble() %>% dplyr::sample_n(size=n)}
+      dt<-readRDS(directori %>% here::here(fitxer)) %>% as_tibble() %>% dplyr::sample_n(size=n)}
     dt}
 
 
@@ -84,10 +86,10 @@ generar_mostra_fitxers<-function(directori="data",
   LLEGIR.fitxer<-function(n,directori,fitxer) {
 
     if (stringr::str_detect(fitxer,"\\.txt$")){
-      dt<-data.table::fread(directori %>% here::here(fitxer)) %>%tibble:: as_tibble() %>%utils:: head(n)}
+      dt<-data.table::fread(directori %>% here::here(fitxer)) %>% as_tibble() %>% head(n)}
 
     if (stringr::str_detect(fitxer,"\\.rds$")){
-      dt<-readRDS(directori %>% here::here(fitxer)) %>%tibble:: as_tibble() %>%utils:: head(n)}
+      dt<-readRDS(directori %>% here::here(fitxer)) %>% as_tibble() %>% head(n)}
     dt}
 
 

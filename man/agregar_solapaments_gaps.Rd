@@ -10,7 +10,7 @@ agregar_solapaments_gaps(
   datainici = "data",
   datafinal = "datafi",
   gap = 5,
-  sel = F
+  sel = FALSE
 )
 }
 \arguments{
@@ -42,7 +42,7 @@ gaps<-agregar_solapaments_gaps(dt=dt_prescripcions,
 id="idp",
 datainici="dat",
 datafinal="dbaixa",
-gap=2,sel=F)
+gap=2,sel=FALSE)
 
 gaps
 }
