@@ -15,6 +15,7 @@
 #' cod="GLICADA"
 #' dt_variables<-data.frame(idp=idp,dat=dat,val=val,cod=cod)
 #' dtagr_variables<-agregar_analitiques(dt=dt_variables,bd.dindex=20081231,finestra.dies = c(-365,0))
+#' dtagr_variables
 
 agregar_analitiques<-function(dt=ANALITIQUES,bd.dindex="20161231",finestra.dies=c(-Inf,Inf),sufix = c(".valor", ".dies"),fun="last",camp="cod"){
 

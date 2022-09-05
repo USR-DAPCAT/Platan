@@ -10,12 +10,13 @@
 #' val=round(rnorm(50,5,1.9),digits=2)
 #' cod="GLICADA"
 #' dt_variables<-data.frame(idp=idp,dat=dat,val=val,cod=cod)
-#' variables_dtindex<-afegir_dataindex(dt=dt_variables,bd.dindex=20081231)
+#' variables_dtindex<-afegir_dataindex(dt_variables,bd.dindex=20081231)
+#' variables_dtindex
 
 afegir_dataindex<-function(dt_historic,bd.dindex="20161231") {
 
-  # dt_historic=dt
-  # bd.dindex=bd.dindex
+   #dt_historic=dt
+   #bd.dindex=bd.dindex
 
   #dt_historic=dt_variables
   #bd.dindex="20161231"
@@ -23,7 +24,7 @@ afegir_dataindex<-function(dt_historic,bd.dindex="20161231") {
 
   # Si es una constant generar una columna constant
   if (is.numeric(bd.dindex) | is.character(bd.dindex)){
-    rrr<-dt_historic %>%
+    rrr<-dt_historic%>%
       dplyr::mutate(dtindex=bd.dindex)%>%data.table
 
   }
@@ -35,7 +36,7 @@ afegir_dataindex<-function(dt_historic,bd.dindex="20161231") {
     rrr<-dt_historic %>%
       dplyr::inner_join(bd.dindex, by="idp") %>%
       rename(dtindex=tidyselect::last_col()) %>% ## Renomenar dtindex (última columna de bd.index)
-      data.table::data.table
+      data.table
   }
 
   rrr

@@ -43,4 +43,6 @@ id="idp",
 datainici="dat",
 datafinal="dbaixa",
 gap=2,sel=F)
+
+gaps
 }

@@ -33,6 +33,7 @@
 #' agregar_data=TRUE,
 #' cataleg_mana =TRUE,
 #' acumular=NULL)
+#' dtagr_prescripcions
 agregar_prescripcions<-function(dt=PRESCRIPCIONS,
                                 bd.dindex=20161231,
                                 dt.agregadors=CATALEG,
@@ -65,22 +66,22 @@ agregar_prescripcions<-function(dt=PRESCRIPCIONS,
   dt<-afegir_dataindex(dt,bd.dindex)
 
   ##### Arreglar dades
-  dt<-dt %>% mutate(
+  dt<-dt %>%dplyr:: mutate(
     dat=lubridate::ymd(dat),
     dbaixa=ifelse(is.na(dbaixa),30160101,dbaixa),
     dbaixa=lubridate::ymd(dbaixa),
     dtindex=lubridate::ymd(dtindex))
 
   ## arreglar CATALEG
-  dt.agregadors<-dt.agregadors %>% select_("cod","agr"=camp_agregador)
-  dt.agregadors<-dt.agregadors %>% filter(!is.na(agr))
+  dt.agregadors<-dt.agregadors %>%dplyr:: select_("cod","agr"=camp_agregador)
+  dt.agregadors<-dt.agregadors %>%dplyr:: filter(!is.na(agr))
 
   prescripcions_agr<-dt %>%
     dplyr::select(idp,dtindex,cod,dat,dbaixa, acumular) %>%
     # Calculo els dies de solapament per codi (cod)
     dplyr::mutate(overlap = pmax(pmin(dtindex+lubridate::days(finestra.dies[2]), dbaixa) - pmax(dtindex+lubridate::days(finestra.dies[1]), dat) + 1,0),
                   overlap=as.numeric(overlap)) %>%
-    filter(overlap>0) # Elimino els que no xafen la finestra (overlap==0)
+    dplyr::filter(overlap>0) # Elimino els que no xafen la finestra (overlap==0)
 
   # Capturo l'agregador cataleg i elimino repetits
   if (is.null(acumular)) {
@@ -121,7 +122,7 @@ agregar_prescripcions<-function(dt=PRESCRIPCIONS,
         int1=dtindex+lubridate::days(finestra.dies[1]),
         data0=ifelse(dat>=int1,dat,int1),               # Si solapament inclou tota la finestra afago limit inferior de la finestra
         data0=lubridate::as_date(data0)) %>%
-      as_tibble() %>%
+      tibble::as_tibble() %>%
       dplyr::select(idp,dtindex,agr,dat=data0) %>%
       dplyr::group_by(idp,dtindex,agr) %>%
       dplyr::slice(which.min(dat)) %>%                  #
@@ -137,8 +138,8 @@ agregar_prescripcions<-function(dt=PRESCRIPCIONS,
     # prescripcions_agr %>% distinct(agr) # Aquests serien els agregadors de prescripció on tinc alguna prescripció
     # dt.agregadors %>% distinct(agr) # Aquests son els del cataleg
 
-    pp<-dplyr::select(dt.agregadors,agr) %>% distinct() %>% anti_join(prescripcions_agr %>% distinct(agr),by="agr") # Aquests son els prescripció = 0
-    porca<-prescripcions_agr %>% distinct(idp,dtindex) %>% merge(pp) %>% as_tibble()
+    pp<-dplyr::select(dt.agregadors,agr) %>%dplyr::distinct() %>%dplyr::anti_join(prescripcions_agr %>%dplyr:: distinct(agr),by="agr") # Aquests son els prescripció = 0
+    porca<-prescripcions_agr %>%dplyr:: distinct(idp,dtindex) %>% merge(pp) %>%tibble:: as_tibble()
     # Afegeixo en dt.temp els nous agregadors buits i fusiono amb dt.temp
     prescripcions_agr<-prescripcions_agr %>% bind_rows(porca)
   }

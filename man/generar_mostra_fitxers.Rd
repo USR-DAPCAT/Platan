@@ -10,7 +10,8 @@ generar_mostra_fitxers(
   mida_mostra = 10000,
   prefix = "test",
   directori_test = "mostra",
-  idp = "idp"
+  idp = "idp",
+  llavor = 1234
 )
 }
 \arguments{
@@ -68,8 +69,12 @@ MOSTRA<-generar_mostra_fitxers(directori="data",
 fitxer_poblacio="dt_poblacio.rds",
 mida_mostra=3,prefix="test_",
 directori_test="mostra",
-idp="idp")
+idp="idp",llavor=1234)
 
-test_dt_diagnostics<-readRDS(here::here("data/mostra","test_dt_diagnostics.rds"))
-test_dt_diagnostics
+readRDS(here::here("data/mostra","test_dt_diagnostics.rds"))
+readRDS(here::here("data/mostra","test_dt_facturacio.rds"))
+readRDS(here::here("data/mostra","test_dt_prescripcions.rds"))
+readRDS(here::here("data/mostra","test_dt_variables.rds"))
+readRDS(here::here("data/mostra","test_dt_poblacio.rds"))
+
 }

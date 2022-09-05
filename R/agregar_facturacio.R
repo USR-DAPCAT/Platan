@@ -35,6 +35,7 @@
 #' agregar_data=TRUE,
 #' cataleg_mana=TRUE,
 #' acumular=NULL)
+#' dtagr_facturacio
 
 agregar_facturacio<-function(dt=PRESCRIPCIONS,
                              finestra.dies=c(-90,0),
@@ -73,14 +74,14 @@ agregar_facturacio<-function(dt=PRESCRIPCIONS,
 
   # filtrar dt farmacs només per agregadors d'interes (camp_agregador)
   print("Filtrant per farmac agregador")
-  dt<-dt %>% semi_join(dt.agregadors, by="cod")
+  dt<-dt %>%dplyr::semi_join(dt.agregadors, by="cod")
 
   #### Afegir data index en l'historic de farmacs
   print("Afegint data index en historic de farmacs")
   dt<-afegir_dataindex(dt,bd.dindex)
 
   # Si no existeix agr el creo
-  if (!("agr" %in% colnames(dt))) { dt<-dt %>% mutate(agr=NA) }
+  if (!("agr" %in% colnames(dt))) { dt<-dt %>%dplyr::mutate(agr=NA) }
 
   #### Filtrar dt  per finestra temporal i genero data i datafi
   print("Filtrant historic per finestra temporal i generant data i datafi")
@@ -90,13 +91,13 @@ agregar_facturacio<-function(dt=PRESCRIPCIONS,
   ##
 
   # Filtro missings en dtindex (Si no peta)
-  dt<-dt %>% filter(!is.na(dtindex))
+  dt<-dt %>% dplyr::filter(!is.na(dtindex))
 
   pepito<-dt %>% dplyr::mutate (
     data=lubridate::ymd(paste0(as.character(dat),"15")),    # Data arrodonida al dia 15
     datafi=data+(env*30),                  # Genero data fi en funció dels envasos
     dtindex=lubridate::ymd(dtindex)) %>%
-    as_tibble()
+    tibble::as_tibble()
 
   # Estimo el nombre d'envasos de solapament per codi i agrego per codi diferent
   print ("Estimo el nombre d'envasos de solapament per codi i agrego per codi diferent")
@@ -117,7 +118,7 @@ agregar_facturacio<-function(dt=PRESCRIPCIONS,
   pepito<- pepito %>%
     dplyr::inner_join(dplyr::select(dt.agregadors,c(cod,agr)), by="cod") %>%      # Capturo agregador del cataleg
     dplyr::distinct(idp,dtindex,cod,agr,data,datafi,.keep_all = TRUE) %>%         # Elimino duplicats per idp-dtindex-cod-agr
-    as_tibble()
+    tibble::as_tibble()
 
   # Agregació de nombre d'envasos per defecte
   print("Agregant facturacio")
@@ -125,7 +126,7 @@ agregar_facturacio<-function(dt=PRESCRIPCIONS,
   if (!(agregar_data)) {
     dt_agregada <- pepito %>%                   # Agrego --> Suma de numero d'envasos per idp-dtindex-agr
       dplyr::select(c(idp,dtindex,agr,env)) %>%
-      as_tibble() %>%
+      tibble::as_tibble() %>%
       dplyr::group_by(idp,dtindex,agr) %>%
       dplyr::summarise(FX=sum(env,na.rm=T)) %>%
       dplyr::ungroup()
@@ -136,7 +137,7 @@ agregar_facturacio<-function(dt=PRESCRIPCIONS,
     acumular<-rlang::sym(acumular)
     dt_agregada <- pepito %>%                   # Agrego --> Suma d'indicador acumulat per idp-dtindex-agr
       dplyr::select(c(idp,dtindex,agr,!!acumular)) %>%
-      as_tibble() %>%
+      tibble::as_tibble() %>%
       dplyr::group_by(idp,dtindex,agr) %>%
       dplyr::summarise(FX=sum(!!acumular,na.rm=T)) %>%
       dplyr::ungroup()
@@ -146,16 +147,16 @@ agregar_facturacio<-function(dt=PRESCRIPCIONS,
   #  Si s'ha d'agregar data primera Facturació
   if (agregar_data){
     dt_agregada <- pepito %>%                    # Agrego --> data mínima
-      mutate(
+      dplyr::mutate(
         int1=dtindex+finestra.dies[1],  # Si solapament inclou tota la finestra afago limit inferior de la finestra
         data0=ifelse(data>=int1,data,int1)) %>%
-      as_tibble() %>%
+      tibble::as_tibble() %>%
       dplyr::select(c(idp,dtindex,agr,data=data0)) %>%
       dplyr::group_by(idp,dtindex,agr) %>%
       dplyr::slice(which.min(data)) %>%
       dplyr::ungroup() %>%
       dplyr::rename(FX=data) %>%
-      mutate(FX=as.Date(FX,origin = "1970-01-01"))
+      dplyr::mutate(FX=as.Date(FX,origin = "1970-01-01"))
 
   }
 
@@ -165,9 +166,9 @@ agregar_facturacio<-function(dt=PRESCRIPCIONS,
     # Selecciono agregadors en cataleg sense codi en dt
     # tots els codis que tenen algun agregador en dt i els que no
 
-    dt_temp2<-dplyr::select(pepito,cod) %>% distinct(cod) %>% left_join(dplyr::select(dt.agregadors,c(cod,agr)),by="cod")
-    pp<-dplyr::select(dt.agregadors,agr) %>% distinct() %>% anti_join(dt_temp2 %>% distinct(agr),by="agr")
-    porca<-dt_agregada %>% distinct(idp,dtindex) %>% base::merge(pp) %>% as_tibble()
+    dt_temp2<-dplyr::select(pepito,cod) %>% distinct(cod) %>%dplyr::left_join(dplyr::select(dt.agregadors,c(cod,agr)),by="cod")
+    pp<-dplyr::select(dt.agregadors,agr) %>% distinct() %>%dplyr::anti_join(dt_temp2 %>% distinct(agr),by="agr")
+    porca<-dt_agregada %>% distinct(idp,dtindex) %>% base::merge(pp) %>%tibble:: as_tibble()
     # Afegeixo en dt.temp els nous agregadors buits i fusiono amb dt.temp
     dt_agregada<-dt_agregada %>% bind_rows(porca)
 
@@ -178,7 +179,7 @@ agregar_facturacio<-function(dt=PRESCRIPCIONS,
   print("Aplanamenta")
   dt_agregada<-dt_agregada %>%
     tidyr::spread(agr,FX,sep=".") %>%
-    mutate_if(is.numeric, funs(ifelse(is.na(.), 0, .)))
+    dplyr::mutate_if(is.numeric, funs(ifelse(is.na(.), 0, .)))
   # mutate_if(is.numeric, list(ifelse(is.na(.), 0, .)))
 
   names(dt_agregada) <- sub("agr.", prefix, names(dt_agregada))   # Afegir prefix a noms de variables

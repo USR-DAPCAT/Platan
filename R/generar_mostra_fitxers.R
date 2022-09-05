@@ -45,15 +45,20 @@
 #' fitxer_poblacio="dt_poblacio.rds",
 #' mida_mostra=3,prefix="test_",
 #' directori_test="mostra",
-#' idp="idp")
+#' idp="idp",llavor=1234)
 #'
-#' test_dt_diagnostics<-readRDS(here::here("data/mostra","test_dt_diagnostics.rds"))
-#' test_dt_diagnostics
+#' readRDS(here::here("data/mostra","test_dt_diagnostics.rds"))
+#' readRDS(here::here("data/mostra","test_dt_facturacio.rds"))
+#' readRDS(here::here("data/mostra","test_dt_prescripcions.rds"))
+#' readRDS(here::here("data/mostra","test_dt_variables.rds"))
+#' readRDS(here::here("data/mostra","test_dt_poblacio.rds"))
+#'
 generar_mostra_fitxers<-function(directori="data",
                                  fitxer_poblacio="METPLUS_entregable_poblacio_20181126_190346.rds",
                                  mida_mostra=10000,
                                  prefix="test",
-                                 directori_test="mostra",idp="idp") {
+                                 directori_test="mostra",idp="idp",
+                                 llavor=1234) {
 
   # directori="dades"
   # fitxer_poblacio="pacients.txt"
@@ -62,14 +67,16 @@ generar_mostra_fitxers<-function(directori="data",
   # directori_test="mostra"
   # idp="IDP"
 
+  set.seed(llavor)
+
   # Funció interna per llegir fitxer txt o rds
   LLEGIR.fitxer_poblacio<-function(n,directori,fitxer) {
 
     if (stringr::str_detect(fitxer,"\\.txt$")){
-      dt<-data.table::fread(directori %>% here::here(fitxer)) %>% as_tibble() %>% dplyr::sample_n(size=n)}
+      dt<-data.table::fread(directori %>% here::here(fitxer)) %>%tibble:: as_tibble() %>% dplyr::sample_n(size=n)}
 
     if (stringr::str_detect(fitxer,"\\.rds$")){
-      dt<-readRDS(directori %>% here::here(fitxer)) %>% as_tibble() %>% dplyr::sample_n(size=n)}
+      dt<-readRDS(directori %>% here::here(fitxer)) %>%tibble:: as_tibble() %>% dplyr::sample_n(size=n)}
     dt}
 
 
@@ -77,10 +84,10 @@ generar_mostra_fitxers<-function(directori="data",
   LLEGIR.fitxer<-function(n,directori,fitxer) {
 
     if (stringr::str_detect(fitxer,"\\.txt$")){
-      dt<-data.table::fread(directori %>% here::here(fitxer)) %>% as_tibble() %>% head(n)}
+      dt<-data.table::fread(directori %>% here::here(fitxer)) %>%tibble:: as_tibble() %>%utils:: head(n)}
 
     if (stringr::str_detect(fitxer,"\\.rds$")){
-      dt<-readRDS(directori %>% here::here(fitxer)) %>% as_tibble() %>% head(n)}
+      dt<-readRDS(directori %>% here::here(fitxer)) %>%tibble:: as_tibble() %>%utils:: head(n)}
     dt}
 
 

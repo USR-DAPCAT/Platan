@@ -23,6 +23,7 @@
 #' dtagr_diagnostics<-agregar_problemes(select(dt_diagnostics,idp,cod,dat),bd.dindex = 20100101,
 #' dt.agregadors=select(dt_cataleg,cod,agr),finestra.dies=c(-Inf,0),prefix = "DG.",cataleg_mana=TRUE)
 #'
+#'dtagr_diagnostics
 #'
 agregar_problemes<-function(dt=PROBLEMES,bd.dindex="20161231",dt.agregadors=CATALEG,finestra.dies=c(-Inf,0),prefix="DG.",camp_agregador="agr",keep.code=F,cataleg_mana=F) {
 

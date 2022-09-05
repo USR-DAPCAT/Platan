@@ -53,14 +53,17 @@ cod=c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07")
 agr_Farmac=c("Sulfonilureas","Biguanidas","Tiazolidinadiones","Biguanidas","Antibioticos")
 dt_cataleg<-data.frame(domini=domini,cod=cod,agr_Farmac=agr_Farmac)
 
+dt.agregadors=dplyr::select(dt_cataleg,cod,agr=agr_Farmac)
+
 dtagr_facturacio<-agregar_facturacio(
 dt=dt_facturacio,
 bd.dindex=20080120,
 finestra.dies=c(-90,0),
-dt.agregadors=select(dt_cataleg,cod,agr=agr_Farmac),
+dt.agregadors=dt.agregadors,
 prefix="FF.",
 camp_agregador="agr",
 agregar_data=TRUE,
 cataleg_mana=TRUE,
 acumular=NULL)
+dtagr_facturacio
 }

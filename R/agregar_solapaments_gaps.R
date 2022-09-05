@@ -19,6 +19,8 @@
 #' datainici="dat",
 #' datafinal="dbaixa",
 #' gap=2,sel=F)
+#'
+#' gaps
 
 agregar_solapaments_gaps<-function(dt=dades,id="idp",datainici="data",datafinal="datafi",gap=5,sel=F){
 
@@ -35,11 +37,11 @@ agregar_solapaments_gaps<-function(dt=dades,id="idp",datainici="data",datafinal=
 
   # Seleccionar dades necessaries amb noms sense sym::
   dt<-dt %>% dplyr::select(idp=!!idp_sym, data=!!datainici_sym,datafi=!!datafinal_sym)%>%
-    mutate(data=lubridate::ymd(data),datafi=lubridate::ymd(datafi))
+    dplyr::mutate(data=lubridate::ymd(data),datafi=lubridate::ymd(datafi))
 
   # filtrem els errors
   origen<-dt
-  dt<-dt%>%mutate(error=case_when(datafi<data~1 ,
+  dt<-dt%>%dplyr::mutate(error=case_when(datafi<data~1 ,
                                   is.na(data) ~ 1,
                                   is.na(datafi) ~ 1,
                                   TRUE ~0))
@@ -54,10 +56,10 @@ agregar_solapaments_gaps<-function(dt=dades,id="idp",datainici="data",datafinal=
 
   # 1. Eliminar solapaments
   dt2<-dt %>%
-    group_by(idp) %>% arrange(data) %>%
-    mutate(indx = c(0, cumsum(as.numeric(lead(data)) >cummax(as.numeric(datafi)+gap))[-n()]))%>%
-    group_by(idp, indx) %>%
-    summarise(data = min(data), datafi = max(datafi),.groups = 'drop') %>%
+    dplyr::group_by(idp) %>% dplyr::arrange(data) %>%
+    dplyr::mutate(indx = c(0, cumsum(as.numeric(lead(data)) >cummax(as.numeric(datafi)+gap))[-n()]))%>%
+    dplyr::group_by(idp, indx) %>%
+    dplyr::summarise(data = min(data), datafi = max(datafi),.groups = 'drop') %>%
     dplyr::select(-indx) %>% ungroup()
 
   # list(dades0=origen,dades1=dt,dades2=dt2)

@@ -63,4 +63,5 @@ camp_agregador="agr",
 agregar_data=TRUE,
 cataleg_mana =TRUE,
 acumular=NULL)
+dtagr_prescripcions
 }
