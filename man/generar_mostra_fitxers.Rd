@@ -40,7 +40,7 @@ idp=c(1,2,3,4,5)
 sex=c("H","H","D","D","H")
 edat=c(23,67,90,16,100)
 dt_poblacio<-data.frame(idp=idp,sex=sex,edat=edat)
-saveRDS(dt_poblacio, file=("data/dt_poblacio.rds"))
+saveRDS(dt_poblacio, file=("data/dt_poblacio"))
 
 idp=rep(1:5,each=5)
 dat=rep(c(200801,200801,200801,200801,200802),times=5)
