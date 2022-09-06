@@ -3,6 +3,7 @@
 #' @param dt  data.índex
 #' @param cataleg Catàleg
 #' @param parametres Paràmetres
+#' @param ... altres funcions
 #' @return Retorna una taula plana a partir dels parametres dels agregadors
 #' @export Generar_taula_plana
 #' @examples

@@ -27,8 +27,6 @@ Depends:
     knitr,
     tibble,
     tidyselect,
-    htmlwidgets,
-    compareGroups,
     magrittr,
     utils,
     devtools

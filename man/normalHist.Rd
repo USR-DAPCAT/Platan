@@ -10,6 +10,8 @@ normalHist(x, dens = FALSE, ...)
 \item{x}{vector de dades l'histograma del qual es calcularà}
 
 \item{dens}{valor lògic: TRUE=Superposar estimador de nucli de la densitat}
+
+\item{...}{altres funcions}
 }
 \value{
 histograma amb la densitat normal superposada

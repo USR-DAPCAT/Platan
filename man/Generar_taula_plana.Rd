@@ -17,6 +17,8 @@ Generar_taula_plana(
 \item{cataleg}{Catàleg}
 
 \item{parametres}{Paràmetres}
+
+\item{...}{altres funcions}
 }
 \value{
 Retorna una taula plana a partir dels parametres dels agregadors

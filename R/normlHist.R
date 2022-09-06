@@ -3,6 +3,7 @@
 #' ajustada. Si l'usuari ho desitja, pot superposar també un estimador de nucli de la densitat
 #' @param x vector de dades l'histograma del qual es calcularà
 #' @param dens valor lògic: TRUE=Superposar estimador de nucli de la densitat
+#' @param ... altres funcions
 #' @return histograma amb la densitat normal superposada
 #' @export normalHist
 #' @examples

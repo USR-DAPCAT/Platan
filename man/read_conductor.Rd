@@ -8,6 +8,8 @@ read_conductor(fitxer, ...)
 }
 \arguments{
 \item{fitxer}{fitxer que el convertirem a tibble.}
+
+\item{...}{altres funcions}
 }
 \value{
 una taula tibble

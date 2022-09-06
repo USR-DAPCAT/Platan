@@ -6,6 +6,7 @@
 #' @param prefix          Prefix de la mostra
 #' @param directori_test  Directori Test
 #' @param llavor          llavor aleatoria
+#' @param idp             idp
 #' @return La mostra
 #' @export generar_mostra_fitxers
 #' @examples

@@ -25,6 +25,8 @@ generar_mostra_fitxers(
 
 \item{directori_test}{Directori Test}
 
+\item{idp}{idp}
+
 \item{llavor}{llavor aleatoria}
 }
 \value{
