@@ -3,7 +3,8 @@
 #' @param fitxer fitxer que el convertirem a tibble.
 #' @param ... altres funcions
 #' @return una taula tibble
-#' @export read_conductor
+#' @export
+#' @importFrom dplyr "%>%"
 
 read_conductor<-function(fitxer,...) {
   # fitxer<-here::here(fitxer_cataleg)

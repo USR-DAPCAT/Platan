@@ -3,7 +3,7 @@
 #' @param dt_historic Base de dades medica estructura long amb idp:identificació pacient
 #' @param bd.dindex Data Index , que afagirem a la nostra base de dades
 #' @return La data índex
-#' @export afegir_dataindex
+#' @export
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)

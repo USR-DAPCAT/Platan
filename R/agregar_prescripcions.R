@@ -10,7 +10,7 @@
 #' @param acumular Null.
 #' @param cataleg_mana Catàleg
 #' @return Taula agregada prescripcions
-#' @export agregar_prescripcions
+#' @export
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)

@@ -9,7 +9,7 @@
 #' @param keep.code Guarda els codis.
 #' @param cataleg_mana Catàleg.
 #' @return Taula agregada de problemes
-#' @export agregar_problemes
+#' @export
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)

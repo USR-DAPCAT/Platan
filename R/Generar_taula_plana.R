@@ -5,7 +5,8 @@
 #' @param parametres Paràmetres
 #' @param ... altres funcions
 #' @return Retorna una taula plana a partir dels parametres dels agregadors
-#' @export Generar_taula_plana
+#' @export
+#' @importFrom dplyr "%>%"
 #' @examples
 #  #bd Poblacio:
 #' idp=c(1,2,3,4,5)
@@ -139,7 +140,7 @@ Generar_taula_plana<-function(dt=dt_index,
 
   # Depurar parametres ---------------------------------
   # en funciÃ³ de la existencia dels fitxers si no existeixen -----
-  exist_file<-parametres$fitxer %>% set_names(parametres$fitxer) %>%purrr::map(~exists(.x)) %>% purrr::map(~as.integer(.x)) %>%
+  exist_file<-parametres$fitxer %>% rlang::set_names(parametres$fitxer) %>%purrr::map(~exists(.x)) %>% purrr::map(~as.integer(.x)) %>%
     unlist() %>%tibble:: as_tibble()
   parametres<-parametres %>%dplyr:: bind_cols(exist_file) %>%dplyr:: rename("exist"=value)
 
@@ -158,7 +159,7 @@ Generar_taula_plana<-function(dt=dt_index,
   # Triar arxiu bd.dindex en funciÃ³ de punt de tall?
 
   # Si no existeix crear-lo i posar-hi dataindex
-  if(!"tall" %in% colnames(parametres)) parametres<-parametres %>% mutate(tall=deparse(substitute(dt)))
+  if(!"tall" %in% colnames(parametres)) parametres<-parametres %>% dplyr::mutate(tall=deparse(substitute(dt)))
   # Si existeix evaluar cada fila i afegir el nom del dt
   if("tall" %in% colnames(parametres)) {
     parametres<-parametres %>% dplyr::mutate(
@@ -180,13 +181,13 @@ Generar_taula_plana<-function(dt=dt_index,
                                                     "cmbdh_procediments_cim10scp","DIAG","derivacions") )
 
     # Generar dades historic en funciÃ³ del nom fitxer
-    nom_fitxer<-  par_problemes %>% dplyr::distinct(fitxer) %>% pull()
-    nom_fitxer<-set_names(nom_fitxer,nom_fitxer)
-    dt_historic<-nom_fitxer %>% purrr::map_df(~eval(sym(.x)),.id="nom_fitxer") %>%dplyr:: semi_join(dt,by="idp") %>%dplyr:: select(nom_fitxer,idp,cod,dat)
+    nom_fitxer<-  par_problemes %>% dplyr::distinct(fitxer) %>% dplyr::pull()
+    nom_fitxer<-rlang::set_names(nom_fitxer,nom_fitxer)
+    dt_historic<-nom_fitxer %>% purrr::map_df(~eval(rlang::sym(.x)),.id="nom_fitxer") %>%dplyr:: semi_join(dt,by="idp") %>%dplyr:: select(nom_fitxer,idp,cod,dat)
 
     # Generar agregacions problemes segons llista de parametres
     DTAGR_PROBLEMES<-
-      pmap(transmute(par_problemes,fitxer,as.numeric(Finestra1),as.numeric(Finestra2),prefix,camp,tall,cataleg_mana),
+      purrr::pmap(dplyr::transmute(par_problemes,fitxer,as.numeric(Finestra1),as.numeric(Finestra2),prefix,camp,tall,cataleg_mana),
 
            ~agregar_problemes(
              dt=dt_historic %>% filter(nom_fitxer==..1),
@@ -197,7 +198,7 @@ Generar_taula_plana<-function(dt=dt_index,
              camp_agregador=..5,
              cataleg_mana=..7)
       ) %>%
-      reduce(full_join,by=c("idp","dtindex")) %>%   # Juntar-ho tot
+      purrr::reduce(full_join,by=c("idp","dtindex")) %>%   # Juntar-ho tot
       dplyr::mutate(dtindex=lubridate::as_date(dtindex) %>% data.to.string)
 
   } else DTAGR_PROBLEMES<-dt
@@ -215,15 +216,15 @@ Generar_taula_plana<-function(dt=dt_index,
     cat_farmacs <-cataleg %>%dplyr:: filter(domini%in% c("farmacs_facturats","farmacs","farmacs_prescrits"))
 
     # Generar dades historic en funciO del nom fitxer
-    nom_fitxer<-  par_farmacs %>% dplyr::distinct(fitxer) %>% pull()
+    nom_fitxer<-  par_farmacs %>% dplyr::distinct(fitxer) %>% dplyr::pull()
     nom_fitxer<-rlang::set_names(nom_fitxer,nom_fitxer)
 
 
-    dt_historic<-nom_fitxer %>% map_df(~eval(sym(.x)),.id="nom_fitxer") %>%dplyr:: semi_join(dt,by="idp")
+    dt_historic<-nom_fitxer %>% map_df(~eval(rlang::sym(.x)),.id="nom_fitxer") %>%dplyr:: semi_join(dt,by="idp")
 
     #
     DTAGR_FARMACS<-
-      pmap(dplyr::transmute(par_farmacs,fitxer,as.numeric(Finestra1),as.numeric(Finestra2),prefix,camp,tall,cataleg_mana),
+      purrr::pmap(dplyr::transmute(par_farmacs,fitxer,as.numeric(Finestra1),as.numeric(Finestra2),prefix,camp,tall,cataleg_mana),
 
            ~agregar_facturacio(
              dt_historic %>% select(idp,cod,dat,env) %>% filter(nom_fitxer==..1),
@@ -235,7 +236,7 @@ Generar_taula_plana<-function(dt=dt_index,
              agregar_data=F,
              cataleg_mana = ..7)
       ) %>%
-      reduce(dplyr::full_join,by=c("idp","dtindex")) %>%  # Juntar-ho tot
+      purrr::reduce(dplyr::full_join,by=c("idp","dtindex")) %>%  # Juntar-ho tot
       dplyr::mutate(dtindex=data.to.string(dtindex))
 
   } else DTAGR_FARMACS<-dt
@@ -251,14 +252,14 @@ Generar_taula_plana<-function(dt=dt_index,
     cat_farmacs <-cataleg %>% filter(domini%in% c("farmacs_facturats","farmacs","farmacs_prescrits"))
 
     # Generar dades historic en funciÃ³ del nom fitxer
-    nom_fitxer<-  par_farmacs %>%dplyr:: distinct(fitxer) %>% pull()
+    nom_fitxer<-  par_farmacs %>%dplyr:: distinct(fitxer) %>% dplyr::pull()
     nom_fitxer<-set_names(nom_fitxer,nom_fitxer)
 
-    dt_historic<-nom_fitxer %>%purrr:: map_df(~eval(sym(.x)),.id="nom_fitxer") %>%dplyr:: semi_join(dt,by="idp")
+    dt_historic<-nom_fitxer %>%purrr:: map_df(~eval(rlang::sym(.x)),.id="nom_fitxer") %>%dplyr:: semi_join(dt,by="idp")
 
     #
     DTAGR_FARMACS_PR<-
-      pmap(transmute(par_farmacs,fitxer,as.numeric(Finestra1),as.numeric(Finestra2),prefix,camp,tall,cataleg_mana),
+      purrr::pmap(dplyr::transmute(par_farmacs,fitxer,as.numeric(Finestra1),as.numeric(Finestra2),prefix,camp,tall,cataleg_mana),
 
            ~agregar_prescripcions(
              dt_historic %>% select(idp,cod,dat,dbaixa) %>% filter(nom_fitxer==..1),
@@ -270,7 +271,7 @@ Generar_taula_plana<-function(dt=dt_index,
              agregar_data=F,
              cataleg_mana = ..7)
       ) %>%
-      reduce(dplyr::full_join,by=c("idp","dtindex")) %>%  # Juntar-ho tot
+      purrr::reduce(dplyr::full_join,by=c("idp","dtindex")) %>%  # Juntar-ho tot
       dplyr::mutate(dtindex=data.to.string(dtindex))
 
   } else DTAGR_FARMACS_PR<-dt
@@ -280,16 +281,16 @@ Generar_taula_plana<-function(dt=dt_index,
   par_analit<-
     parametres %>%
     filter(domini %in% c("analitiques","variables","cliniques")) %>%
-    mutate(val_tipus=NA)
+    dplyr::mutate(val_tipus=NA)
 
-  nom_fitxer<-  par_analit %>% dplyr::distinct(fitxer) %>% pull()
-  nom_fitxer<-set_names(nom_fitxer,nom_fitxer)
+  nom_fitxer<-  par_analit %>% dplyr::distinct(fitxer) %>% dplyr::pull()
+  nom_fitxer<-rlang::set_names(nom_fitxer,nom_fitxer)
 
   if (nrow(par_analit)>0) {
     val_tipus<-nom_fitxer %>%
-      purrr:: map (~eval(sym(.x))) %>%
+      purrr:: map (~eval(rlang::sym(.x))) %>%
       purrr::map_df(~class(.x$val)) %>%
-      data.table::transpose() %>% pull(V1)
+      data.table::transpose() %>%dplyr:: pull(V1)
     par_analit<-par_analit %>%dplyr:: select(-val_tipus) %>%
       dplyr::left_join(tibble(fitxer=nom_fitxer,val_tipus),by="fitxer")
   }
@@ -299,13 +300,13 @@ Generar_taula_plana<-function(dt=dt_index,
   if (nrow(par_analit_quanti)>0) {
 
     # Generar dades historic en funciÃ³ del nom fitxer
-    nom_fitxer<-  par_analit_quanti %>% dplyr::distinct(fitxer) %>% pull()
+    nom_fitxer<-  par_analit_quanti %>% dplyr::distinct(fitxer) %>% dplyr::pull()
 
-    nom_fitxer<-set_names(nom_fitxer,nom_fitxer)
-    dt_historic<-nom_fitxer %>%purrr:: map_df(~eval(sym(.x)),.id="nom_fitxer") %>%dplyr:: semi_join(dt,by="idp")
+    nom_fitxer<-rlang::set_names(nom_fitxer,nom_fitxer)
+    dt_historic<-nom_fitxer %>%purrr:: map_df(~eval(rlang::sym(.x)),.id="nom_fitxer") %>%dplyr:: semi_join(dt,by="idp")
 
     DTAGR_ANALITIQUES<-
-      pmap(transmute(par_analit_quanti,
+      purrr::pmap(dplyr::transmute(par_analit_quanti,
                      fitxer,as.numeric(Finestra1),as.numeric(Finestra2),prefix,funcio,camp,tall),
 
            ~ agregar_analitiques(dt_historic %>% filter(nom_fitxer==..1),
@@ -317,7 +318,7 @@ Generar_taula_plana<-function(dt=dt_index,
 
       ) %>%
 
-      reduce(dplyr::full_join,by=c("idp","dtindex")) %>%  # Juntar-ho tot
+      purrr::reduce(dplyr::full_join,by=c("idp","dtindex")) %>%  # Juntar-ho tot
       dplyr::mutate(dtindex=lubridate::as_date(dtindex) %>% data.to.string)
 
   } else DTAGR_ANALITIQUES<-dt
@@ -330,15 +331,15 @@ Generar_taula_plana<-function(dt=dt_index,
   if (nrow(par_analit_quali)>0) {
 
     # Generar dades historic en funciÃ³ del nom fitxer
-    nom_fitxer<-  par_analit_quali %>% distinct(fitxer) %>% pull()
+    nom_fitxer<-  par_analit_quali %>% distinct(fitxer) %>% dplyr::pull()
 
-    nom_fitxer<-set_names(nom_fitxer,nom_fitxer)
-    dt_historic<-nom_fitxer %>% purrr:: map_df(~eval(sym(.x)),.id="nom_fitxer") %>% semi_join(dt,by="idp")
+    nom_fitxer<-rlang::set_names(nom_fitxer,nom_fitxer)
+    dt_historic<-nom_fitxer %>% purrr:: map_df(~eval(rlang::sym(.x)),.id="nom_fitxer") %>% semi_join(dt,by="idp")
 
     DTAGR_ANALITIQUES_char<-
-      pmap(
+      purrr::pmap(
 
-        transmute(par_analit_quali,
+        dplyr::transmute(par_analit_quali,
                   fitxer,as.numeric(Finestra1),as.numeric(Finestra2),prefix,funcio,camp,tall),
 
         ~ agregar_analitiques(dt_historic %>% dplyr::filter(nom_fitxer==..1),
@@ -350,7 +351,7 @@ Generar_taula_plana<-function(dt=dt_index,
 
       ) %>%
 
-      reduce(dplyr::full_join,by=c("idp","dtindex")) %>%  # Juntar-ho tot
+      purrr::reduce(dplyr::full_join,by=c("idp","dtindex")) %>%  # Juntar-ho tot
       mutate(dtindex=lubridate::as_date(dtindex) %>% data.to.string)
 
   } else DTAGR_ANALITIQUES_char<-dt

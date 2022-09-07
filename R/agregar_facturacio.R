@@ -10,7 +10,7 @@
 #' @param acumular Null.
 #' @param cataleg_mana Catàleg
 #' @return Taula agregada facturacio
-#' @export agregar_facturacio
+#' @export
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(200801,200801,200801,200801,200802),times=5)
@@ -37,9 +37,9 @@
 #' acumular=NULL)
 #' dtagr_facturacio
 
-agregar_facturacio<-function(dt=PRESCRIPCIONS,
+agregar_facturacio<-function(dt=dt_facturacio,
                              finestra.dies=c(-90,0),
-                             dt.agregadors=CATALEG,
+                             dt.agregadors=dt.agregadors,
                              bd.dindex="20161231",
                              prefix="FD.",
                              camp_agregador="agr",
@@ -47,15 +47,7 @@ agregar_facturacio<-function(dt=PRESCRIPCIONS,
                              acumular=NULL,
                              cataleg_mana=F){
 
-  # dt=dt_farmacs_facturats
-  # bd.dindex=dt_index
-  # finestra.dies=c(-365,+180)
-  # dt.agregadors=dt_cataleg_FX
-  # prefix="FD."
-  # camp_agregador="agr"
-  # agregar_data=F
-  # acumular=NULL
-  # cataleg_mana=T
+
 
   # dt=dt_facturats_dosis
   # finestra.dies = c(0,90)
@@ -65,7 +57,8 @@ agregar_facturacio<-function(dt=PRESCRIPCIONS,
   # prefix="FDD1."
   # agregar_data=F
   # acumular="DD_env"
-  #rm(list=ls())
+  # cataleg_mana=T
+  # rm(list=ls())
 
   agregador_sym<-rlang::sym(camp_agregador)
   ## Filtrar CATALEG per agrupador per camp_agregador
@@ -109,7 +102,7 @@ agregar_facturacio<-function(dt=PRESCRIPCIONS,
                   overlap=as.numeric(overlap),
                   env2=overlap/30) %>%
     dplyr::select(-agr,-dat,-interval2,-interval1,env,-env,env=env2) %>%      # Netejo variables
-    filter(env>0.05)    # Selecciono files amb solapament d'envasos dins finestra (Elimino env>0.05)
+    dplyr::filter(env>0.05)    # Selecciono files amb solapament d'envasos dins finestra (Elimino env>0.05)
 
 
   # Capturo Agregador de CATALEG i elimino duplicats

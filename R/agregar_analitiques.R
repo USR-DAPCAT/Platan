@@ -7,7 +7,7 @@
 #' @param fun Per defecte Last, la data mes proxima a la bd.index.
 #' @param camp El camp a on fem l'agreggacio.
 #' @return Taula agregada analitiques
-#' @export agregar_analitiques
+#' @export
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)

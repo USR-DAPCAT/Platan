@@ -2,7 +2,7 @@
 #' @description data passa a string
 #' @param data data
 #' @return data string
-#' @export data.to.string
+#' @export
 
 data.to.string<-function(data) {
 

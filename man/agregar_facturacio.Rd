@@ -5,9 +5,9 @@
 \title{Agregar facturacio.}
 \usage{
 agregar_facturacio(
-  dt = PRESCRIPCIONS,
+  dt = dt_facturacio,
   finestra.dies = c(-90, 0),
-  dt.agregadors = CATALEG,
+  dt.agregadors = dt.agregadors,
   bd.dindex = "20161231",
   prefix = "FD.",
   camp_agregador = "agr",

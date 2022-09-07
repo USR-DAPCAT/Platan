@@ -9,10 +9,10 @@ Description: Platan és un Package que conté les funcions per aplanar una base 
 License: GPL(>=3)
 Encoding: UTF-8
 LazyData: true
-VignetteBuilder: knitr
 RoxygenNote: 7.2.1
 Depends:
-    R (>= 3.5.0),
+    R (>= 3.5.0)
+Imports:
     dplyr,
     data.table,
     stringr,

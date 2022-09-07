@@ -7,7 +7,7 @@
 #' @param gap GAPS
 #' @param sel Seleccionem
 #' @return Retorna dades amb els gaps (discontinuitat petita)
-#' @export agregar_solapaments_gaps
+#' @export
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
