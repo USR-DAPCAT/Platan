@@ -290,7 +290,7 @@ Generar_taula_plana<-function(dt=dt_index,
     val_tipus<-nom_fitxer %>%
       purrr:: map (~eval(rlang::sym(.x))) %>%
       purrr::map_df(~class(.x$val)) %>%
-      data.table::transpose() %>%dplyr:: pull(V1)
+      purrr::transpose() %>%dplyr:: pull(V1)
     par_analit<-par_analit %>%dplyr:: select(-val_tipus) %>%
       dplyr::left_join(tibble(fitxer=nom_fitxer,val_tipus),by="fitxer")
   }
