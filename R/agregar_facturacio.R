@@ -11,6 +11,7 @@
 #' @param cataleg_mana Catàleg
 #' @return Taula agregada facturacio
 #' @export
+#' @importFrom dplyr "%>%"
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(200801,200801,200801,200801,200802),times=5)

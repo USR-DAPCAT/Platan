@@ -4,6 +4,7 @@
 #' @param bd.dindex Data Index , que afagirem a la nostra base de dades
 #' @return La data índex
 #' @export
+#' @importFrom dplyr "%>%"
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)
@@ -25,7 +26,7 @@ afegir_dataindex<-function(dt_historic,bd.dindex="20161231") {
   # Si es una constant generar una columna constant
   if (is.numeric(bd.dindex) | is.character(bd.dindex)){
     rrr<-dt_historic%>%
-      dplyr::mutate(dtindex=bd.dindex)%>%data.table
+      dplyr::mutate(dtindex=bd.dindex)%>%data.frame
 
   }
 
@@ -35,8 +36,8 @@ afegir_dataindex<-function(dt_historic,bd.dindex="20161231") {
     # Fusionar a l'historic la data index movil
     rrr<-dt_historic %>%
       dplyr::inner_join(bd.dindex, by="idp") %>%
-      rename(dtindex=tidyselect::last_col()) %>% ## Renomenar dtindex (última columna de bd.index)
-      data.table
+      dplyr::rename(dtindex=tidyselect::last_col()) %>% ## Renomenar dtindex (última columna de bd.index)
+      data.frame
   }
 
   rrr
