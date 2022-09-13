@@ -369,23 +369,27 @@ Generar_taula_plana<-function(dt=dt_index,
   # Generar data index
   # Agafar talls diferents i generar fitxer amb diferents dates index
   talls<-parametres %>%
-    distinct(tall) %>%dplyr::filter(!is.na(tall)) %>%
-    filter(is.numeric(eval(parse(text=tall))) | is.character(eval(parse(text=tall)))
-    ) %>% dplyr::mutate(temp=1,dtindex=tall)
+    dplyr::distinct(tall)%>%
+     dplyr::filter(!is.na(tall))%>%
+      dplyr::filter(is.numeric(eval(parse(text=tall))) | is.character(eval(parse(text=tall))))%>%
+       dplyr::mutate(temp=1,dtindex=tall)
 
-  dt_temp<-dt %>%dplyr::select(idp) %>% dplyr::mutate(temp=1) %>%dplyr::inner_join(talls,by="temp") %>%
-    dplyr::transmute(idp,dtindex=as.character(dtindex))
+  dt_temp<-dt %>%
+    dplyr::select(idp)%>%
+     dplyr::mutate(temp=1)%>%
+      dplyr::inner_join(talls,by="temp")%>%
+        dplyr::transmute(idp,dtindex=as.character(dtindex))
 
   #No existeixen alguns fitxers:dt_farmacs_facturats, dt_farmacs_prescrits
 
   dt<-dt %>% bind_rows(dt_temp) %>%dplyr:: distinct() %>% dplyr::arrange(idp,dtindex) %>% na.omit()
 
-  dt %>%
-    dplyr::full_join(DTAGR_PROBLEMES) %>%
-    dplyr::full_join(DTAGR_FARMACS) %>%
-    dplyr::full_join(DTAGR_FARMACS_PR) %>%
-    dplyr::full_join(DTAGR_ANALITIQUES) %>%
-    dplyr::full_join(DTAGR_ANALITIQUES_char)
+  dt%>%
+   dplyr::full_join(DTAGR_PROBLEMES) %>%
+     dplyr::full_join(DTAGR_FARMACS) %>%
+      dplyr::full_join(DTAGR_FARMACS_PR) %>%
+       dplyr::full_join(DTAGR_ANALITIQUES) %>%
+        dplyr::full_join(DTAGR_ANALITIQUES_char)
 
 }
 

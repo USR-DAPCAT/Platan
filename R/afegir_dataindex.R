@@ -35,9 +35,9 @@ afegir_dataindex<-function(dt_historic,bd.dindex="20161231") {
 
     # Fusionar a l'historic la data index movil
     rrr<-dt_historic %>%
-      dplyr::inner_join(bd.dindex, by="idp") %>%
-      dplyr::rename(dtindex=tidyselect::last_col()) %>% ## Renomenar dtindex (última columna de bd.index)
-      data.frame
+      dplyr::inner_join(bd.dindex, by="idp")%>%
+       dplyr::rename(dtindex=tidyselect::last_col())%>% ## Renomenar dtindex (última columna de bd.index)
+        data.frame
   }
 
   rrr
