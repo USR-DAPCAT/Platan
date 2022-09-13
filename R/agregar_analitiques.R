@@ -8,6 +8,31 @@
 #' @param camp El camp a on fem l'agreggacio.
 #' @return Taula agregada analitiques
 #' @export
+# allowing for the use of the dot when piping
+utils::globalVariables(c("val",
+                         "dies",
+                         "funcioresum_dies",
+                         "median",
+                         "sd",
+                         "funcioresum",
+                         "idp",
+                         "cod",
+                         "dat",
+                         "Finestra1",
+                         "Finestra2",
+                         "prefix",
+                         "camp",
+                         "dtindex",
+                         "filter",
+                         "v1",
+                         "tibble",
+                         "funcio",
+                         "distinct",
+                         "mutate",
+                         "bind_rows",
+                         "na.omit",
+                         ":=",
+                         "<<-" ))
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)
@@ -17,7 +42,7 @@
 #' dtagr_variables<-agregar_analitiques(dt=dt_variables,bd.dindex=20081231,finestra.dies = c(-365,0))
 #' dtagr_variables
 
-agregar_analitiques<-function(dt=ANALITIQUES,bd.dindex="20161231",finestra.dies=c(-Inf,Inf),sufix = c(".valor", ".dies"),fun="last",camp="cod"){
+agregar_analitiques<-function(dt="ANALITIQUES",bd.dindex="20161231",finestra.dies=c(-Inf,Inf),sufix = c(".valor", ".dies"),fun="last",camp="cod"){
 
   # dt =dt_temp
   # bd.dindex =dt_index

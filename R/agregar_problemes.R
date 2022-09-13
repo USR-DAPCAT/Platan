@@ -11,6 +11,8 @@
 #' @return Taula agregada de problemes
 #' @export
 #' @importFrom dplyr "%>%"
+# allowing for the use of the dot when piping
+utils::globalVariables(c("dat_num","dtindex_num"))
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
@@ -26,7 +28,7 @@
 #'
 #'dtagr_diagnostics
 #'
-agregar_problemes<-function(dt=PROBLEMES,bd.dindex="20161231",dt.agregadors=CATALEG,finestra.dies=c(-Inf,0),prefix="DG.",camp_agregador="agr",keep.code=F,cataleg_mana=F) {
+agregar_problemes<-function(dt="PROBLEMES",bd.dindex="20161231",dt.agregadors="CATALEG",finestra.dies=c(-Inf,0),prefix="DG.",camp_agregador="agr",keep.code=F,cataleg_mana=F) {
 
 
   # dt=dt_problemes
@@ -52,7 +54,7 @@ agregar_problemes<-function(dt=PROBLEMES,bd.dindex="20161231",dt.agregadors=CATA
   if (class(dt$dat)!="Date") dt$dat_num=as.Date(as.character(dt$dat),format="%Y%m%d") %>% as.numeric()
   if (class(dt$dtindex)!="Date") dt$dtindex_num=as.Date(as.character(dt$dtindex),format="%Y%m%d") %>% as.numeric()
 
-  dt<-dt %>% as_tibble()
+  dt<-dt %>% tibble::as_tibble()
 
   ##### filtrar per intervals de dates
   dt<-dt %>% dplyr::filter(dat_num>= dtindex_num +finestra.dies[1] &
@@ -64,11 +66,11 @@ agregar_problemes<-function(dt=PROBLEMES,bd.dindex="20161231",dt.agregadors=CATA
   #   lubridate::ymd(dtindex)+finestra.dies[2])]
 
   ## Filtrar CATALEG PER CAMP AGREGADOR
-  camp_agregador_sym<-sym(camp_agregador)
+  camp_agregador_sym<-rlang::sym(camp_agregador)
 
   dt.agregadors<-dt.agregadors %>%
     dplyr::select(cod,agr=!!camp_agregador_sym) %>%
-    filter(!is.na(agr))
+    dplyr::filter(!is.na(agr))
 
   ## Captura d'agregadors     ######
   dt<-dt %>%
@@ -90,11 +92,11 @@ agregar_problemes<-function(dt=PROBLEMES,bd.dindex="20161231",dt.agregadors=CATA
   if (cataleg_mana) {
     # Selecciono agregadors en cataleg sense codi en dt
     # tots els codis que tenen algun agregador en dt i els que no
-    dt_temp2<-dplyr::select(dt,cod) %>% distinct(cod) %>% left_join(dplyr::select(dt.agregadors,c(cod,agr)),by="cod")
-    pp<-dplyr::select(dt.agregadors,agr) %>% distinct() %>% anti_join(dt_temp2 %>% distinct(agr),by="agr")
-    porca<-dt.temp %>% distinct(idp,dtindex) %>% merge(pp) %>% as_tibble()
+    dt_temp2<-dplyr::select(dt,cod) %>% dplyr::distinct(cod) %>% dplyr::left_join(dplyr::select(dt.agregadors,c(cod,agr)),by="cod")
+    pp<-dplyr::select(dt.agregadors,agr) %>% dplyr::distinct() %>% dplyr::anti_join(dt_temp2 %>% dplyr::distinct(agr),by="agr")
+    porca<-dt.temp %>% dplyr::distinct(idp,dtindex) %>% merge(pp) %>% tibble::as_tibble()
     # Afegeixo en dt.temp els nous agregadors buits i fusiono amb dt.temp
-    dt.temp<-dt.temp %>% bind_rows(porca)
+    dt.temp<-dt.temp %>% dplyr::bind_rows(porca)
   }
 
   # RESHAPE una data per agregador
@@ -113,7 +115,7 @@ agregar_problemes<-function(dt=PROBLEMES,bd.dindex="20161231",dt.agregadors=CATA
       # RESHAPE per agregador i em quedo la data
       tidyr::spread(agr,cod,sep="_")                                                        # Reshape
     names(dt.agregat_cod) <- sub("agr_", "cod_", names(dt.agregat_cod))
-    dt.agregat<-dt.agregat %>% left_join(dt.agregat_cod,by=c("idp","dtindex"))
+    dt.agregat<-dt.agregat %>% dplyr::left_join(dt.agregat_cod,by=c("idp","dtindex"))
   }
 
   dt.agregat

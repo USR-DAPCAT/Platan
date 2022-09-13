@@ -17,27 +17,27 @@ read_conductor<-function(fitxer,...) {
 
     if (stringr::str_detect(fitxer,"\\.txt$")){
 
-      dt<-data.table::fread(fitxer) %>% tidyr:: as_tibble()
+      dt<-data.table::fread(fitxer) %>% tibble::as_tibble()
 
     } else if (stringr::str_detect(fitxer,"\\.rds$")) {
 
-      dt<-readRDS(fitxer,...) %>% as_tibble()
+      dt<-readRDS(fitxer,...) %>%tibble::as_tibble()
 
     } else if (stringr::str_detect(fitxer,"\\.xls$")) {
 
-      dt<-readxl::read_excel(fitxer,...) %>% tidyr::as_tibble()
+      dt<-readxl::read_excel(fitxer,...) %>% tibble::as_tibble()
 
     } else if (stringr::str_detect(fitxer,"\\.xlsx$")) {
 
-      dt<-readxl::read_excel(fitxer,...) %>% tidyr::as_tibble()
+      dt<-readxl::read_excel(fitxer,...) %>% tibble::as_tibble()
 
     } else if (stringr::str_detect(fitxer,"\\.xlS$")) {
 
-      dt<-readxl::read_excel(fitxer,...) %>% tidyr::as_tibble()
+      dt<-readxl::read_excel(fitxer,...) %>% tibble::as_tibble()
 
     } else if (stringr::str_detect(fitxer,"\\.sav$")) {
 
-      dt<-foreign::read.spss(fitxer,use.value.labels = T,to.data.frame = T,...) %>% tidyr::as_tibble()
+      dt<-foreign::read.spss(fitxer,use.value.labels = T,to.data.frame = T,...) %>% tibble::as_tibble()
     }
     else {stop("format de dades no reconegut ")}
   }

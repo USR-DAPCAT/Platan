@@ -8,6 +8,9 @@
 #' @param sel Seleccionem
 #' @return Retorna dades amb els gaps (discontinuitat petita)
 #' @export
+#' @importFrom dplyr "%>%"
+# allowing for the use of the dot when piping
+utils::globalVariables(c("error","indx","n"))
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
@@ -22,7 +25,7 @@
 #'
 #' gaps
 
-agregar_solapaments_gaps<-function(dt=dades,id="idp",datainici="data",datafinal="datafi",gap=5,sel=FALSE){
+agregar_solapaments_gaps<-function(dt="dades",id="idp",datainici="data",datafinal="datafi",gap=5,sel=FALSE){
 
   # dt=FX.FACTURATS_PRESCRITS_GRUPS
   # gap=60
@@ -41,7 +44,7 @@ agregar_solapaments_gaps<-function(dt=dades,id="idp",datainici="data",datafinal=
 
   # filtrem els errors
   origen<-dt
-  dt<-dt%>%dplyr::mutate(error=case_when(datafi<data~1 ,
+  dt<-dt%>%dplyr::mutate(error=dplyr::case_when(datafi<data~1 ,
                                   is.na(data) ~ 1,
                                   is.na(datafi) ~ 1,
                                   TRUE ~0))
@@ -57,10 +60,10 @@ agregar_solapaments_gaps<-function(dt=dades,id="idp",datainici="data",datafinal=
   # 1. Eliminar solapaments
   dt2<-dt %>%
     dplyr::group_by(idp) %>% dplyr::arrange(data) %>%
-    dplyr::mutate(indx = c(0, cumsum(as.numeric(lead(data)) >cummax(as.numeric(datafi)+gap))[-n()]))%>%
+    dplyr::mutate(indx = c(0, cumsum(as.numeric(dplyr::lead(data)) >cummax(as.numeric(datafi)+gap))[-n()]))%>%
     dplyr::group_by(idp, indx) %>%
     dplyr::summarise(data = min(data), datafi = max(datafi),.groups = 'drop') %>%
-    dplyr::select(-indx) %>% ungroup()
+    dplyr::select(-indx) %>% dplyr::ungroup()
 
   # list(dades0=origen,dades1=dt,dades2=dt2)
 

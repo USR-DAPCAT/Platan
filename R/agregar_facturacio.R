@@ -12,6 +12,19 @@
 #' @return Taula agregada facturacio
 #' @export
 #' @importFrom dplyr "%>%"
+# allowing for the use of the dot when piping
+utils::globalVariables(c("agr",
+                         "data",
+                         "env",
+                         "interval2",
+                         "datafi",
+                         "interval1",
+                         "overlap",
+                         "env2",
+                         "int1",
+                         "data0",
+                         "FX",
+                         "."))
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(200801,200801,200801,200801,200802),times=5)
@@ -38,7 +51,7 @@
 #' acumular=NULL)
 #' dtagr_facturacio
 
-agregar_facturacio<-function(dt=dt_facturacio,
+agregar_facturacio<-function(dt="dt_facturacio",
                              finestra.dies=c(-90,0),
                              dt.agregadors=dt.agregadors,
                              bd.dindex="20161231",
@@ -173,7 +186,7 @@ agregar_facturacio<-function(dt=dt_facturacio,
   print("Aplanamenta")
   dt_agregada<-dt_agregada %>%
     tidyr::spread(agr,FX,sep=".") %>%
-    dplyr::mutate_if(is.numeric, funs(ifelse(is.na(.), 0, .)))
+    dplyr::mutate_if(is.numeric, dplyr::funs(ifelse(is.na(.), 0, .)))
   # mutate_if(is.numeric, list(ifelse(is.na(.), 0, .)))
 
   names(dt_agregada) <- sub("agr.", prefix, names(dt_agregada))   # Afegir prefix a noms de variables

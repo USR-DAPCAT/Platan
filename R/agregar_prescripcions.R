@@ -12,6 +12,8 @@
 #' @return Taula agregada prescripcions
 #' @export
 #' @importFrom dplyr "%>%"
+# allowing for the use of the dot when piping
+utils::globalVariables(c("dbaixa"))
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
@@ -35,9 +37,9 @@
 #' cataleg_mana =TRUE,
 #' acumular=NULL)
 #' dtagr_prescripcions
-agregar_prescripcions<-function(dt=PRESCRIPCIONS,
+agregar_prescripcions<-function(dt="PRESCRIPCIONS",
                                 bd.dindex=20161231,
-                                dt.agregadors=CATALEG,
+                                dt.agregadors="CATALEG",
                                 prefix="FP.",
                                 finestra.dies=c(0,0),
                                 camp_agregador="agr",
