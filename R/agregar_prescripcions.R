@@ -12,8 +12,6 @@
 #' @return Taula agregada prescripcions
 #' @export
 #' @importFrom dplyr "%>%"
-# allowing for the use of the dot when piping
-utils::globalVariables(c("dbaixa"))
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
@@ -30,7 +28,7 @@ utils::globalVariables(c("dbaixa"))
 #' dt=dt_prescripcions,
 #' bd.dindex=20080120,
 #' finestra.dies=c(-90,0),
-#' dt.agregadors=select(dt_cataleg,cod,agr=agr_Farmac),
+#' dt.agregadors=dplyr::select(dt_cataleg,cod,agr=agr_Farmac),
 #' prefix="FP.",
 #' camp_agregador="agr",
 #' agregar_data=TRUE,
@@ -144,7 +142,7 @@ agregar_prescripcions<-function(dt="PRESCRIPCIONS",
     pp<-dplyr::select(dt.agregadors,agr) %>%dplyr::distinct() %>%dplyr::anti_join(prescripcions_agr %>%dplyr:: distinct(agr),by="agr") # Aquests son els prescripció = 0
     porca<-prescripcions_agr %>%dplyr:: distinct(idp,dtindex) %>% merge(pp) %>%tibble:: as_tibble()
     # Afegeixo en dt.temp els nous agregadors buits i fusiono amb dt.temp
-    prescripcions_agr<-prescripcions_agr %>% bind_rows(porca)
+    prescripcions_agr<-prescripcions_agr %>%dplyr:: bind_rows(porca)
   }
   #
 

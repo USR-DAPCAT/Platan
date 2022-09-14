@@ -11,8 +11,6 @@
 #' @return Taula agregada de problemes
 #' @export
 #' @importFrom dplyr "%>%"
-# allowing for the use of the dot when piping
-utils::globalVariables(c("dat_num","dtindex_num"))
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
@@ -23,8 +21,11 @@ utils::globalVariables(c("dat_num","dtindex_num"))
 #' cod=c("E11","I25","150.9","I10")
 #' agr=c("DM2","ISQ.CRONICA","INS.CARD","HTA")
 #' dt_cataleg<-data.frame(domini=domini,cod=cod,agr=agr)
-#' dtagr_diagnostics<-agregar_problemes(select(dt_diagnostics,idp,cod,dat),bd.dindex = 20100101,
-#' dt.agregadors=select(dt_cataleg,cod,agr),finestra.dies=c(-Inf,0),prefix = "DG.",cataleg_mana=TRUE)
+#' dtagr_diagnostics<-agregar_problemes(dplyr::select(dt_diagnostics,idp,cod,dat),
+#' bd.dindex = 20100101,
+#' dt.agregadors=dplyr::select(dt_cataleg,cod,agr),
+#' finestra.dies=c(-Inf,0),prefix = "DG.",
+#' cataleg_mana=TRUE)
 #'
 #'dtagr_diagnostics
 #'

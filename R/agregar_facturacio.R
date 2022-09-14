@@ -12,19 +12,6 @@
 #' @return Taula agregada facturacio
 #' @export
 #' @importFrom dplyr "%>%"
-# allowing for the use of the dot when piping
-utils::globalVariables(c("agr",
-                         "data",
-                         "env",
-                         "interval2",
-                         "datafi",
-                         "interval1",
-                         "overlap",
-                         "env2",
-                         "int1",
-                         "data0",
-                         "FX",
-                         "."))
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(200801,200801,200801,200801,200802),times=5)
@@ -173,11 +160,11 @@ agregar_facturacio<-function(dt="dt_facturacio",
     # Selecciono agregadors en cataleg sense codi en dt
     # tots els codis que tenen algun agregador en dt i els que no
 
-    dt_temp2<-dplyr::select(pepito,cod) %>% distinct(cod) %>%dplyr::left_join(dplyr::select(dt.agregadors,c(cod,agr)),by="cod")
-    pp<-dplyr::select(dt.agregadors,agr) %>% distinct() %>%dplyr::anti_join(dt_temp2 %>% distinct(agr),by="agr")
-    porca<-dt_agregada %>% distinct(idp,dtindex) %>% base::merge(pp) %>%tibble:: as_tibble()
+    dt_temp2<-dplyr::select(pepito,cod) %>% dplyr::distinct(cod) %>%dplyr::left_join(dplyr::select(dt.agregadors,c(cod,agr)),by="cod")
+    pp<-dplyr::select(dt.agregadors,agr) %>% dplyr::distinct() %>%dplyr::anti_join(dt_temp2 %>% dplyr::distinct(agr),by="agr")
+    porca<-dt_agregada %>% dplyr::distinct(idp,dtindex) %>% base::merge(pp) %>%tibble:: as_tibble()
     # Afegeixo en dt.temp els nous agregadors buits i fusiono amb dt.temp
-    dt_agregada<-dt_agregada %>% bind_rows(porca)
+    dt_agregada<-dt_agregada %>% dplyr::bind_rows(porca)
 
   }
   ##################
@@ -194,3 +181,5 @@ agregar_facturacio<-function(dt="dt_facturacio",
   dt_agregada
 
 }
+
+

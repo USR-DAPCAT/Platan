@@ -7,23 +7,6 @@
 #' @return Retorna una taula plana a partir dels parametres dels agregadors
 #' @export
 #' @importFrom dplyr "%>%"
-# allowing for the use of the dot when piping
-utils::globalVariables(c("fitxer",
-                         "domini",
-                         "value",
-                         "exist",
-                         "cataleg_mana",
-                         "tall",
-                         "idp",
-                         "cod",
-                         "dat",
-                         "Finestra1",
-                         "Finestra2",
-                         "prefix",
-                         "camp",
-                         "dtindex",
-                         "V1",
-                         "funcio"))
 #' @examples
 #  #bd Poblacio:
 #' idp=c(1,2,3,4,5)
@@ -107,10 +90,7 @@ utils::globalVariables(c("fitxer",
 #' cataleg=dt_cataleg,
 #' parametres=dt_parametres)
 #'
-#'
-#' Taula_plana<-Taula_plana%>%select(-"y[FALSE, ]")
 #' Taula_plana
-#'
 
 Generar_taula_plana<-function(dt="dt_index",
                               cataleg="dt_cataleg",
@@ -124,8 +104,7 @@ Generar_taula_plana<-function(dt="dt_index",
   #parametres=dt_parametres
 
 
-  #dt<-dt%>%
-  #transmute(idp,dtindex=as.character(dtindex))
+  #dt<-dt%>%transmute(idp,dtindex=as.character(dtindex))
 
   # cataleg=fitxer_cataleg
   # parametres=fitxer_cataleg
@@ -133,7 +112,7 @@ Generar_taula_plana<-function(dt="dt_index",
   # cataleg = fitxer_cataleg
   # parametres = here::here("cataleg_precav_emilio.xls")
   # sheet="parametres_2010"
-  # dt_dindex %>% select(idp,dtindex),
+  # dt_dindex %>% dplyr::select(idp,dtindex),
   # cataleg = here::here("Cataleg_DAPRET.xls")
   # parametres=here::here("Cataleg_DAPRET.xls")
   # parametres=fitxer_cataleg
@@ -281,7 +260,7 @@ Generar_taula_plana<-function(dt="dt_index",
       purrr::pmap(dplyr::transmute(par_farmacs,fitxer,as.numeric(Finestra1),as.numeric(Finestra2),prefix,camp,tall,cataleg_mana),
 
            ~agregar_prescripcions(
-             dt_historic %>% select(idp,cod,dat,dbaixa) %>% dplyr::filter(nom_fitxer==..1),
+             dt_historic %>% dplyr::select(idp,cod,dat,dbaixa) %>% dplyr::filter(nom_fitxer==..1),
              bd.dindex=eval(parse(text=..6)),
              finestra.dies=c(..2,..3),
              dt.agregadors=cat_farmacs,

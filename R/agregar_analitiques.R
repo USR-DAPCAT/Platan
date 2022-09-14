@@ -8,31 +8,6 @@
 #' @param camp El camp a on fem l'agreggacio.
 #' @return Taula agregada analitiques
 #' @export
-# allowing for the use of the dot when piping
-utils::globalVariables(c("val",
-                         "dies",
-                         "funcioresum_dies",
-                         "median",
-                         "sd",
-                         "funcioresum",
-                         "idp",
-                         "cod",
-                         "dat",
-                         "Finestra1",
-                         "Finestra2",
-                         "prefix",
-                         "camp",
-                         "dtindex",
-                         "filter",
-                         "v1",
-                         "tibble",
-                         "funcio",
-                         "distinct",
-                         "mutate",
-                         "bind_rows",
-                         "na.omit",
-                         ":=",
-                         "<<-" ))
 #' @examples
 #' idp=rep(1:5,each=5)
 #' dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)
@@ -82,32 +57,32 @@ agregar_analitiques<-function(dt="ANALITIQUES",bd.dindex="20161231",finestra.die
     dplyr::mutate(dies=dtindex -dat)                                    # Calculo els dies fins data index
 
   ### Generar funcions agregacio valor i data (dies que han passat)
-  if (fun=="last") funcioresum<<-function(x=val,y=dies) dplyr::nth(x,which.min(y))
-  if (fun=="last") funcioresum_dies<<-function(x=val,y=dies) min(y,na.rm = T)
+  if (fun=="last") funcioresum<-function(x=val,y=dies) dplyr::nth(x,which.min(y))
+  if (fun=="last") funcioresum_dies<-function(x=val,y=dies) min(y,na.rm = T)
 
-  if (fun=="first") funcioresum<<-function(x=val,y=dies) dplyr::nth(x,which.max(y))
-  if (fun=="first") funcioresum_dies<<-function(x=val,y=dies) max(y,na.rm = T)
+  if (fun=="first") funcioresum<-function(x=val,y=dies) dplyr::nth(x,which.max(y))
+  if (fun=="first") funcioresum_dies<-function(x=val,y=dies) max(y,na.rm = T)
 
-  if (fun=="close") funcioresum<<-function(x=val,y=dies) dplyr::nth(x,which.min(abs(y)))
-  if (fun=="close") funcioresum_dies<<-function(x=val,y=dies) min(abs(y))
+  if (fun=="close") funcioresum<-function(x=val,y=dies) dplyr::nth(x,which.min(abs(y)))
+  if (fun=="close") funcioresum_dies<-function(x=val,y=dies) min(abs(y))
 
-  if (fun=="mean") funcioresum<<-function(x=val,y=dies) mean(x,na.rm = T)
-  if (fun=="mean") funcioresum_dies<<-function(x=val,y=dies) mean(y,na.rm = T)
+  if (fun=="mean") funcioresum<-function(x=val,y=dies) mean(x,na.rm = T)
+  if (fun=="mean") funcioresum_dies<-function(x=val,y=dies) mean(y,na.rm = T)
 
-  if (fun=="median") funcioresum<<-function(x=val,y=dies) median(x,na.rm = T)
-  if (fun=="median") funcioresum_dies<<-function(x=val,y=dies) median(y,na.rm = T)
+  if (fun=="median") funcioresum<-function(x=val,y=dies) median(x,na.rm = T)
+  if (fun=="median") funcioresum_dies<-function(x=val,y=dies) median(y,na.rm = T)
 
-  if (fun=="sd") funcioresum<<-function(x=val,y=dies) sd(x,na.rm = T)
-  if (fun=="sd") funcioresum_dies<<-function(x=val,y=dies) mean(y,na.rm = T)
+  if (fun=="sd") funcioresum<-function(x=val,y=dies) sd(x,na.rm = T)
+  if (fun=="sd") funcioresum_dies<-function(x=val,y=dies) mean(y,na.rm = T)
 
-  if (fun=="min") funcioresum<<-function(x=val,y=dies) valor=min(x,na.rm = T)
-  if (fun=="min") funcioresum_dies<<-function(x=val,y=dies) dplyr::nth(y,which.min(x))
+  if (fun=="min") funcioresum<-function(x=val,y=dies) valor=min(x,na.rm = T)
+  if (fun=="min") funcioresum_dies<-function(x=val,y=dies) dplyr::nth(y,which.min(x))
 
-  if (fun=="max") funcioresum<<-function(x=val,y=dies) max(x,na.rm = T)
-  if (fun=="max") funcioresum_dies<<-function(x=val,y=dies) dplyr::nth(y,which.max(x))
+  if (fun=="max") funcioresum<-function(x=val,y=dies) max(x,na.rm = T)
+  if (fun=="max") funcioresum_dies<-function(x=val,y=dies) dplyr::nth(y,which.max(x))
 
-  if (fun=="sum") funcioresum<<-function(x=val,y=dies) sum(x,na.rm = T)
-  if (fun=="sum") funcioresum_dies<<-function(x=val,y=dies) mean(y,na.rm = T)
+  if (fun=="sum") funcioresum<-function(x=val,y=dies) sum(x,na.rm = T)
+  if (fun=="sum") funcioresum_dies<-function(x=val,y=dies) mean(y,na.rm = T)
 
   ### Agregacio per idp
   paco1<-paco %>%
