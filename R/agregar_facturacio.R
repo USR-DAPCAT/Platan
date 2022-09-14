@@ -77,7 +77,7 @@ agregar_facturacio<-function(dt="dt_facturacio",
   agregador_sym<-rlang::sym(camp_agregador)
   ## Filtrar CATALEG per agrupador per camp_agregador
   dt.agregadors<-dt.agregadors %>% dplyr::select(cod,agr=!!agregador_sym)
-  dt.agregadors<-dt.agregadors %>% filter(!is.na(agr))
+  dt.agregadors<-dt.agregadors %>%dplyr::filter(!is.na(agr))
 
   # filtrar dt farmacs només per agregadors d'interes (camp_agregador)
   print("Filtrant per farmac agregador")
