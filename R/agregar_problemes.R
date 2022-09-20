@@ -12,10 +12,6 @@
 #' @export
 #' @importFrom dplyr "%>%"
 #' @examples
-#' idp=rep(1:5,each=5)
-#' dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
-#' cod=rep(c("E11","E11","I25","I50.9","I10"),times=5)
-#' dt_diagnostics<-data.frame(idp=idp,cod=cod,dat=dat)
 #'
 #' domini="diagnostics"
 #' cod=c("E11","I25","150.9","I10")

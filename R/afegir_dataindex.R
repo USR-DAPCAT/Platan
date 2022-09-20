@@ -6,11 +6,7 @@
 #' @export
 #' @importFrom dplyr "%>%"
 #' @examples
-#' idp=rep(1:5,each=5)
-#' dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)
-#' val=round(rnorm(50,5,1.9),digits=2)
-#' cod="GLICADA"
-#' dt_variables<-data.frame(idp=idp,dat=dat,val=val,cod=cod)
+#'
 #' variables_dtindex<-afegir_dataindex(dt_variables,bd.dindex=20081231)
 #' variables_dtindex
 
