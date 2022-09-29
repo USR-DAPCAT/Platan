@@ -1,4 +1,4 @@
-#' Mostra de diagnostics
+#' Bases de dades de diagnostics
 #' @format Una data frame amb 25 files i 3 variables
 #' \describe{
 #' \item{idp}{idp (1--5)}
