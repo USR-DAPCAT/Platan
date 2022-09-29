@@ -16,26 +16,6 @@
 #' dt_index<-tibble::as_tibble(dt_index)
 #' dt_index$dtindex<-as.character(dt_index$dtindex)
 #'
-#' #Cataleg:
-#' domini="farmacs_facturats"
-#' cod=c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07")
-#' agr_Farmac=c("Sulfonilureas","Biguanidas","Tiazolidinadiones","Biguanidas","Antibioticos")
-#' dt_cataleg1<-data.frame(domini=domini,cod=cod,agr="",agr_Farmac=agr_Farmac)
-#'
-#' domini="farmacs_prescrits"
-#' cod=c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07")
-#' agr_Farmac=c("Sulfonilureas","Biguanidas","Tiazolidinadiones","Biguanidas","Antibioticos")
-#' dt_cataleg2<-data.frame(domini=domini,cod=cod,agr="",agr_Farmac=agr_Farmac)
-#'
-#' domini="diagnostics"
-#' cod=c("E11","I25","I50.9","I10")
-#' agr=c("DM2","ISQ.CRONICA","INS.CARD","HTA")
-#' dt_cataleg3<-data.frame(domini=domini,cod=cod,agr=agr,agr_Farmac="")
-#' dt_cataleg<-rbind(dt_cataleg1,dt_cataleg2,dt_cataleg3)
-#'
-#' dt_cataleg
-#'
-#'
 #' #Parametres:
 #' fitxer=c("dt_diagnostics","dt_farmacs_facturats","dt_farmacs_prescrits","dt_variables")
 #' domini=c("diagnostics","farmacs_facturats","farmacs_prescrits","variables")

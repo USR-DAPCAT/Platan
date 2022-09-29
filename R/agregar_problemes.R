@@ -13,13 +13,9 @@
 #' @importFrom dplyr "%>%"
 #' @examples
 #'
-#' domini="diagnostics"
-#' cod=c("E11","I25","150.9","I10")
-#' agr=c("DM2","ISQ.CRONICA","INS.CARD","HTA")
-#' dt_cataleg<-data.frame(domini=domini,cod=cod,agr=agr)
 #' dtagr_diagnostics<-agregar_problemes(dplyr::select(dt_diagnostics,idp,cod,dat),
 #' bd.dindex = 20100101,
-#' dt.agregadors=dplyr::select(dt_cataleg,cod,agr),
+#' dt.agregadors=dt_cataleg,
 #' finestra.dies=c(-Inf,0),prefix = "DG.",
 #' cataleg_mana=TRUE)
 #'
