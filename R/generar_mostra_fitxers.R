@@ -17,12 +17,13 @@ generar_mostra_fitxers<-function(directori="data",
                                  idp="idp",
                                  llavor="1234") {
 
-  # directori="dades"
-  # fitxer_poblacio="pacients.txt"
-  # mida_mostra=5000
-  # prefix=""
-  # directori_test="mostra"
-  # idp="IDP"
+  #directori="../../DADES/HTG/mostra"
+  #fitxer_poblacio="HTCPANCR_entregable_poblacio_20210701_235119.rds"
+  #mida_mostra=30
+  #prefix="test"
+  #directori_test="mostra2"
+  #idp="idp"
+  #llavor="1234"
 
   set.seed(llavor)
 
