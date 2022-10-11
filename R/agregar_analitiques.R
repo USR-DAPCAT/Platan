@@ -1,12 +1,12 @@
-#' @title Agregar analitiques.
-#' @description Retorna tibble (data.table) amb els valors analitiques en temps previ en dies.
-#' @param dt La base de dades a on tenim :idp(identificacio Pacient),dat(data del dia de l'analítica:20080101[1-1-2008],val(valor de l'analítica),cod(ex:GLICADA)).
-#' @param bd.dindex Data a on fem el tall.
+#' @title               Agregar analitiques.
+#' @description         Retorna tibble amb els valors analitiques en temps previ en dies.
+#' @param dt            La base de dades a on tenim :idp(identificacio Pacient),dat(data del dia de l'analítica:20080101[1-1-2008],val(valor de l'analítica),cod(ex:GLICADA)).
+#' @param bd.dindex     Data a on fem el tall.
 #' @param finestra.dies Finestra d'observacio a partir de bd.index.
-#' @param sufix Valor del codi, o dies que han passat.
-#' @param fun Per defecte Last, la data mes proxima a la bd.index.
-#' @param camp El camp a on fem l'agreggacio.
-#' @return Taula agregada analitiques
+#' @param sufix         Valor del codi, o dies que han passat.
+#' @param fun           Per defecte Last, la data mes proxima a la bd.index.
+#' @param camp          El camp a on fem l'agreggacio.
+#' @return              Taula agregada analitiques
 #' @export
 #' @examples
 #' dtagr_variables<-agregar_analitiques(dt=dt_variables,bd.dindex=20081231,finestra.dies = c(-365,0))

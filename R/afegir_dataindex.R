@@ -1,10 +1,10 @@
-#' @title Afegeix data-index.
-#' @description Afegeix data-index Dinamica o / Constant si no existeix
+#' @title             Afegeix data index.
+#' @description       Afegeix data index Dinamica o / Constant si no existeix
 #' @param dt_historic Base de dades medica estructura long amb idp:identificació pacient
-#' @param bd.dindex Data Index , que afagirem a la nostra base de dades
-#' @return La data índex
+#' @param bd.dindex   Data Index ,que afagirem a la nostra base de dades
+#' @return            Afageix la data index a la base de dades
 #' @export
-#' @importFrom dplyr "%>%"
+#' @importFrom        dplyr "%>%"
 #' @examples
 #'
 #' variables_dtindex<-afegir_dataindex(dt_variables,bd.dindex=20081231)

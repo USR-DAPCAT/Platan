@@ -1,16 +1,16 @@
-#' @title Agregar problemes de salut.
-#' @description Afegeix data-index Dinamica o / Constant si no existeix
-#' @param dt Base de dades dels Diàgnostics (idp,cod-E11.5-,dat-20150309).
-#' @param bd.dindex Data on comencem a contar els dies.
-#' @param dt.agregadors Catàleg, a on tenim els agregadors a prtir del codi.
-#' @param finestra.dies Finestra de dies a partir de la data.index.
-#' @param prefix Prefix dels agregadors, normalment DG.
+#' @title                Agregar problemes de salut.
+#' @description          Afegeix data-index Dinamica o / Constant si no existeix
+#' @param dt             Base de dades dels Diàgnostics (idp,cod-E11.5-,dat-20150309).
+#' @param bd.dindex      Data on comencem a contar els dies.
+#' @param dt.agregadors  Catàleg, a on tenim els agregadors a prtir del codi.
+#' @param finestra.dies  Finestra de dies a partir de la data.index.
+#' @param prefix         Prefix dels agregadors, normalment DG.
 #' @param camp_agregador Camp agregador.
-#' @param keep.code Guarda els codis.
-#' @param cataleg_mana Catàleg.
-#' @return Taula agregada de problemes
+#' @param keep.code      Guarda els codis.
+#' @param cataleg_mana   Catàleg.
+#' @return               Taula agregada de problemes
 #' @export
-#' @importFrom dplyr "%>%"
+#' @importFrom           dplyr "%>%"
 #' @examples
 #'
 #' dtagr_diagnostics<-agregar_problemes(dplyr::select(dt_diagnostics,idp,cod,dat),

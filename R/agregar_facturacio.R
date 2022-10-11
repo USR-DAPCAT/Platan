@@ -1,17 +1,17 @@
-#' @title Agregar facturacio.
-#' @description Retorna tibble (data.table) amb la suma d'envasos o data primera dispensació dins d'una finestra de temps per idp-dataindex
-#' @param dt Base de dades de Fármac Facturats (idp,cod-A10BB01-,dat-200801,env).
-#' @param finestra.dies Finestra de dies a partir de la data.index.
-#' @param dt.agregadors Catàleg, a on tenim els agregadors a prtir del codi.
-#' @param bd.dindex Data on comencem a contar els dies
-#' @param prefix  Prefix dels agregadors, normalment FF.
+#' @title                Agregar facturacio.
+#' @description          Retorna tibble amb la suma d'envasos o data primera dispensació dins d'una finestra de temps per idp-dataindex
+#' @param dt             Base de dades de Fármac Facturats (idp,cod-A10BB01-,dat-200801,env).
+#' @param finestra.dies  Finestra de dies a partir de la data.index.
+#' @param dt.agregadors  Catàleg, a on tenim els agregadors a prtir del codi.
+#' @param bd.dindex      Data on comencem a contar els dies
+#' @param prefix         Prefix dels agregadors, normalment FF.
 #' @param camp_agregador Camp agregador.
-#' @param agregar_data Ens diu la data del fàrmac dins la finestra.
-#' @param acumular Null.
-#' @param cataleg_mana Catàleg
-#' @return Taula agregada facturacio
+#' @param agregar_data   Ens diu la data del fàrmac dins la finestra.
+#' @param acumular       Null.
+#' @param cataleg_mana   Catàleg
+#' @return               Taula agregada facturacio
 #' @export
-#' @importFrom dplyr "%>%"
+#' @importFrom           dplyr "%>%"
 #' @examples
 #'
 #' dtagr_facturacio<-agregar_facturacio(

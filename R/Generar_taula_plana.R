@@ -1,12 +1,12 @@
-#' @title Generar la taula plana, a partir dels parametres dels agregadors
-#' @description Taula plana
-#' @param dt  data.índex
-#' @param cataleg Catàleg
-#' @param parametres Paràmetres
-#' @param ... altres funcions
-#' @return Retorna una taula plana a partir dels parametres dels agregadors
+#' @title             Generar la taula plana
+#' @description       Generar la taula plana, a partir dels parametres dels agregadors
+#' @param dt          Data.índex
+#' @param cataleg     Catàleg
+#' @param parametres  Paràmetres
+#' @param ...         altres funcions
+#' @return            Retorna una taula plana a partir dels parametres dels agregadors
 #' @export
-#' @importFrom dplyr "%>%"
+#' @importFrom        dplyr "%>%"
 #' @examples
 #
 #' #bd data Index.

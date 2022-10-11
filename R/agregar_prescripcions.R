@@ -1,17 +1,17 @@
-#' @title Agregar prescripcions.
-#' @description Retorna tibble (data.table) amb el temps de prescripció en una finestra o primera data per idp-dataindex / primera data
-#' @param dt Base de dades de Fármac Prescrips (idp,cod-A10BB01-,dat-200801).
-#' @param bd.dindex Data on comencem a contar els dies.
-#' @param dt.agregadors Catàleg, a on tenim els agregadors a prtir del codi.
-#' @param prefix Prefix dels agregadors, normalment FP.
-#' @param finestra.dies Finestra de dies a partir de la data.index.
-#' @param camp_agregador Camp agregador.
-#' @param agregar_data Ens diu la data del fàrmac dins la finestra.
-#' @param acumular Null.
-#' @param cataleg_mana Catàleg
-#' @return Taula agregada prescripcions
+#' @title                  Agregar prescripcions.
+#' @description            Retorna tibble (data.table) amb el temps de prescripció en una finestra o primera data per idp-dataindex / primera data
+#' @param dt               Base de dades de Fármac Prescrips (idp,cod-A10BB01-,dat-200801).
+#' @param bd.dindex        Data on comencem a contar els dies.
+#' @param dt.agregadors    Catàleg, a on tenim els agregadors a prtir del codi.
+#' @param prefix           Prefix dels agregadors, normalment FP.
+#' @param finestra.dies    Finestra de dies a partir de la data.index.
+#' @param camp_agregador   Camp agregador.
+#' @param agregar_data     Ens diu la data del fàrmac dins la finestra.
+#' @param acumular         Null.
+#' @param cataleg_mana     Catàleg
+#' @return                 Taula agregada prescripcions
 #' @export
-#' @importFrom dplyr "%>%"
+#' @importFrom             dplyr "%>%"
 #' @examples
 #'
 #' dtagr_prescripcions<-agregar_prescripcions(

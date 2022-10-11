@@ -1,10 +1,10 @@
-#' @title read_conductor
-#' @description Llegir el fitxer conductor de diferents formats txt o rds o xls xlsx o data_frame tibble
+#' @title        Llegeix el Conductor
+#' @description  Llegir el fitxer conductor de diferents formats txt o rds o xls xlsx o data_frame tibble
 #' @param fitxer fitxer que el convertirem a tibble.
-#' @param ... altres funcions
-#' @return una taula tibble
+#' @param ...    altres funcions
+#' @return       Una taula tibble
 #' @export
-#' @importFrom dplyr "%>%"
+#' @importFrom   dplyr "%>%"
 
 read_conductor<-function(fitxer,...) {
   # fitxer<-here::here(fitxer_cataleg)
