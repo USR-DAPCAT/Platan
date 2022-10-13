@@ -2,27 +2,23 @@
 % Please edit documentation in R/afegir_dataindex.R
 \name{afegir_dataindex}
 \alias{afegir_dataindex}
-\title{Afegeix data-index.}
+\title{Afegeix data index.}
 \usage{
 afegir_dataindex(dt_historic, bd.dindex = "20161231")
 }
 \arguments{
 \item{dt_historic}{Base de dades medica estructura long amb idp:identificació pacient}
 
-\item{bd.dindex}{Data Index , que afagirem a la nostra base de dades}
+\item{bd.dindex}{Data Index ,que afagirem a la nostra base de dades}
 }
 \value{
-La data índex
+Afageix la data index a la base de dades
 }
 \description{
-Afegeix data-index Dinamica o / Constant si no existeix
+Afegeix data index Dinamica o / Constant si no existeix
 }
 \examples{
-idp=rep(1:5,each=5)
-dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)
-val=round(rnorm(50,5,1.9),digits=2)
-cod="GLICADA"
-dt_variables<-data.frame(idp=idp,dat=dat,val=val,cod=cod)
+
 variables_dtindex<-afegir_dataindex(dt_variables,bd.dindex=20081231)
 variables_dtindex
 }

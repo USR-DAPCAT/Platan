@@ -1,11 +1,11 @@
-#' Bases de dades de Poblacio
-#' @format Una data frame amb 5 files i 6 variables
+#' Bases de dades de la pobalcio
+#' @format Una data frame amb 30 files i 6 variables
 #' \describe{
-#' \item{idp}{idp (1--5)}
+#' \item{idp}{idp (1--30)}
 #' \item{sexe}{sexe (D H)}
-#' \item{dnaix}{dnaix (19200801--19400101 )}
 #' \item{situacio}{situacio (A D T)}
-#' \item{entrada}{entrada (20060101--20060101)}
-#' \item{sortida}{sortida (20090102--20181231)}
+#' \item{dnaix}{dnaix 19280901--19830901)}
+#' \item{entrada}{entrada (20080215--20080315)}
+#' \item{sortida}{sortida (20120228--20201231)}
 #' }
 "dt_poblacio"

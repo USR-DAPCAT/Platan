@@ -2,7 +2,7 @@
 % Please edit documentation in R/Generar_taula_plana.R
 \name{Generar_taula_plana}
 \alias{Generar_taula_plana}
-\title{Generar la taula plana, a partir dels parametres dels agregadors}
+\title{Generar la taula plana}
 \usage{
 Generar_taula_plana(
   dt = "dt_index",
@@ -12,7 +12,7 @@ Generar_taula_plana(
 )
 }
 \arguments{
-\item{dt}{data.índex}
+\item{dt}{Data.índex}
 
 \item{cataleg}{Catàleg}
 
@@ -24,72 +24,15 @@ Generar_taula_plana(
 Retorna una taula plana a partir dels parametres dels agregadors
 }
 \description{
-Taula plana
+Generar la taula plana, a partir dels parametres dels agregadors
 }
 \examples{
-idp=c(1,2,3,4,5)
-sex=c("H","H","D","D","H")
-edat=c(23,67,90,16,100)
-dt_poblacio<-data.frame(idp=idp,sex=sex,edat=edat)
-
 #bd data Index.
 idp=c(1,2,3,4,5)
 dtindex=c(20220101,20220101,20220101,20220101,20220101)
 dt_index<-data.frame(idp=idp,dtindex=dtindex)
 dt_index<-tibble::as_tibble(dt_index)
 dt_index$dtindex<-as.character(dt_index$dtindex)
-
-#bd Dianostics:
-idp=rep(1:5,each=5)
-dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
-cod=rep(c("E11","E11","I25","I50.9","I10"),times=5)
-dt_diagnostics<-data.frame(idp=idp,cod=cod,dat=dat)
-dt_diagnostics<-tibble::as_tibble(dt_diagnostics)
-
-#bd Farmacs Facturats:
-idp=rep(1:5,each=5)
-dat=rep(c(200801,200801,200801,200801,200802),times=5)
-cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
-env=rep(1:5,each=5)
-dt_farmacs_facturats<-data.frame(idp=idp,cod=cod,dat=dat,env=env)
-dt_farmacs_facturats<-tibble::as_tibble(dt_farmacs_facturats)
-
-#bd Farmacs Prescrits:
-idp=rep(1:5,each=5)
-dat=rep(c(20080115,20080115,20080115,20080115,20080215),times=5)
-dbaixa=rep(c(20080215,20080215,20080215,20080215,20080315),times=5)
-cod=rep(c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07"),times=5)
-dt_farmacs_prescrits<-data.frame(idp=idp,cod=cod,dat=dat,dbaixa=dbaixa)
-dt_farmacs_prescrits<-tibble::as_tibble(dt_farmacs_prescrits)
-
-#bd Analitica::(V.Cliniques+V.Analitiques)
-idp=rep(1:5,each=5)
-dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)
-val=round(rnorm(50,5,1.9),digits=2)
-cod="GLICADA"
-dt_variables<-data.frame(idp=idp,dat=dat,val=val,cod=cod)
-dt_variables<-tibble::as_tibble(dt_variables)
-
-
-#Cataleg:
-domini="farmacs_facturats"
-cod=c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07")
-agr_Farmac=c("Sulfonilureas","Biguanidas","Tiazolidinadiones","Biguanidas","Antibioticos")
-dt_cataleg1<-data.frame(domini=domini,cod=cod,agr="",agr_Farmac=agr_Farmac)
-
-domini="farmacs_prescrits"
-cod=c("A10BB01","A10BD01","A10BD04","A10BA02","J01DD07")
-agr_Farmac=c("Sulfonilureas","Biguanidas","Tiazolidinadiones","Biguanidas","Antibioticos")
-dt_cataleg2<-data.frame(domini=domini,cod=cod,agr="",agr_Farmac=agr_Farmac)
-
-domini="diagnostics"
-cod=c("E11","I25","I50.9","I10")
-agr=c("DM2","ISQ.CRONICA","INS.CARD","HTA")
-dt_cataleg3<-data.frame(domini=domini,cod=cod,agr=agr,agr_Farmac="")
-dt_cataleg<-rbind(dt_cataleg1,dt_cataleg2,dt_cataleg3)
-
-dt_cataleg
-
 
 #Parametres:
 fitxer=c("dt_diagnostics","dt_farmacs_facturats","dt_farmacs_prescrits","dt_variables")
@@ -105,7 +48,7 @@ dt_parametres
 
 Taula_plana<-Generar_taula_plana(
 dt=dt_index,
-cataleg=dt_cataleg,
+cataleg=cataleg,
 parametres=dt_parametres)
 
 Taula_plana

@@ -2,16 +2,21 @@
 % Please edit documentation in R/data.to.string.R
 \name{data.to.string}
 \alias{data.to.string}
-\title{data.to.string}
+\title{Retorna una data a STRING}
 \usage{
 data.to.string(data)
 }
 \arguments{
-\item{data}{data}
+\item{data}{una data   tipus  "27-09-2022"}
 }
 \value{
-data string
+Data a STRING
 }
 \description{
-data passa a string
+Retorna una data: "27-09-2022"  a STRING
+}
+\examples{
+A<-"27-09-2022"
+B<-data.to.string(A)
+B
 }

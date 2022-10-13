@@ -18,7 +18,7 @@
 #' dt=dt_facturacio,
 #' bd.dindex=20080120,
 #' finestra.dies=c(-90,0),
-#' dt.agregadors=dt_cataleg,
+#' dt.agregadors=cataleg,
 #' prefix="FF.",
 #' camp_agregador="agr",
 #' agregar_data=TRUE,

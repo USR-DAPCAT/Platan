@@ -30,7 +30,7 @@
 #'
 #' Taula_plana<-Generar_taula_plana(
 #' dt=dt_index,
-#' cataleg=dt_cataleg,
+#' cataleg=cataleg,
 #' parametres=dt_parametres)
 #'
 #' Taula_plana

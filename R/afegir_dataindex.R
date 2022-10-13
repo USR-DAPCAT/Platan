@@ -18,6 +18,9 @@ afegir_dataindex<-function(dt_historic,bd.dindex="20161231") {
   #dt_historic=dt_variables
   #bd.dindex="20161231"
 
+  #dt_historic=dt_variables
+  #bd.dindex=20081231
+
 
   # Si es una constant generar una columna constant
   if (is.numeric(bd.dindex) | is.character(bd.dindex)){

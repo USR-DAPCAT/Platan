@@ -30,14 +30,9 @@ agregar_analitiques(
 Taula agregada analitiques
 }
 \description{
-Retorna tibble (data.table) amb els valors analitiques en temps previ en dies.
+Retorna tibble amb els valors analitiques en temps previ en dies.
 }
 \examples{
-idp=rep(1:5,each=5)
-dat=rep(c(20080101,20070101,20060101,20050101,20040101),times=5)
-val=round(rnorm(50,5,1.9),digits=2)
-cod="GLICADA"
-dt_variables<-data.frame(idp=idp,dat=dat,val=val,cod=cod)
 dtagr_variables<-agregar_analitiques(dt=dt_variables,bd.dindex=20081231,finestra.dies = c(-365,0))
 dtagr_variables
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_conductor.R
 \name{read_conductor}
 \alias{read_conductor}
-\title{read_conductor}
+\title{Llegeix el Conductor}
 \usage{
 read_conductor(fitxer, ...)
 }
@@ -12,7 +12,7 @@ read_conductor(fitxer, ...)
 \item{...}{altres funcions}
 }
 \value{
-una taula tibble
+Una taula tibble
 }
 \description{
 Llegir el fitxer conductor de diferents formats txt o rds o xls xlsx o data_frame tibble
