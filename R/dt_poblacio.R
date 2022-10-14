@@ -5,7 +5,7 @@
 #' \item{sexe}{sexe (D H)}
 #' \item{situacio}{situacio (A D T)}
 #' \item{dnaix}{dnaix 19280901--19830901)}
-#' \item{entrada}{entrada (20080215--20080315)}
+#' \item{entrada}{entrada (20060101--20060101)}
 #' \item{sortida}{sortida (20120228--20201231)}
 #' }
 "dt_poblacio"

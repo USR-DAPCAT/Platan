@@ -14,7 +14,7 @@
 #' @examples
 #'
 #' dtagr_diagnostics<-agregar_problemes(dplyr::select(dt_diagnostics,idp,cod,dat),
-#' bd.dindex = 20100101,
+#' bd.dindex = 20220101,
 #' dt.agregadors=cataleg,
 #' finestra.dies=c(-Inf,0),prefix = "DG.",
 #' cataleg_mana=TRUE)

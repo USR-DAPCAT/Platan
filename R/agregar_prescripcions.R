@@ -16,8 +16,8 @@
 #'
 #' dtagr_prescripcions<-agregar_prescripcions(
 #' dt=dt_prescripcions,
-#' bd.dindex=20080120,
-#' finestra.dies=c(-90,0),
+#' bd.dindex=20220101,
+#' finestra.dies=c(-Inf,0),
 #' dt.agregadors=cataleg,
 #' prefix="FP.",
 #' camp_agregador="agr",

@@ -28,18 +28,20 @@ Generar la taula plana, a partir dels parametres dels agregadors
 }
 \examples{
 #bd data Index.
-idp=c(1,2,3,4,5)
-dtindex=c(20220101,20220101,20220101,20220101,20220101)
+idp=c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30)
+dtindex=c(20220101,20220101,20220101,20220101,20220101,20220101,20220101,20220101,20220101,20220101,
+20220101,20220101,20220101,20220101,20220101,20220101,20220101,20220101,20220101,20220101,
+20220101,20220101,20220101,20220101,20220101,20220101,20220101,20220101,20220101,20220101)
 dt_index<-data.frame(idp=idp,dtindex=dtindex)
 dt_index<-tibble::as_tibble(dt_index)
 dt_index$dtindex<-as.character(dt_index$dtindex)
 
 #Parametres:
-fitxer=c("dt_diagnostics","dt_farmacs_facturats","dt_farmacs_prescrits","dt_variables")
+fitxer=c("dt_diagnostics","dt_facturacio","dt_prescripcions","dt_variables")
 domini=c("diagnostics","farmacs_facturats","farmacs_prescrits","variables")
 Finestra1=c(-Inf,-Inf,-Inf,-Inf)
 Finestra2=c(0,0,0,0)
-camp=c("agr","agr_Farmac","agr_Farmac","cod")
+camp=c("agr","agr","agr","cod")
 funcio=c("first","first","first","last")
 prefix =c("DG.","FF.","FP.","Valor.")
 dt_parametres<-data.frame(cbind(fitxer,domini,Finestra1,Finestra2,camp,prefix,funcio))
@@ -52,4 +54,11 @@ cataleg=cataleg,
 parametres=dt_parametres)
 
 Taula_plana
+
+Taula_plana2<-Generar_taula_plana(
+dt=dt_index,
+cataleg=dt_cataleg,
+parametres=dt_parametres)
+
+Taula_plana2
 }

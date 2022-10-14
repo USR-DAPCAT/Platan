@@ -1,9 +1,14 @@
 #' Base de dades analitiques i cliniques
-#' @format Una data frame amb 25 files i 4 variables
+#' @format Una data frame amb 8307 files i 4 variables
 #' \describe{
-#' \item{idp}{idp (1--5)}
-#' \item{dat}{data (20040101--20080101)}
-#' \item{val}{valor (0.12--9.25)}
-#' \item{cod}{codi (GLICADA)}
+#' \item{idp}{idp (1--30)}
+#' \item{dat}{data (20080116--20201218)}
+#' \item{val}{valor (-9999--1231.25)}
+#' \item{cod}{codi (ALSET AMILASA BAS_P BBTOT CAC CKDEPI     COLHDL     COLLDL
+#'  COLTOT        CPC      CREAT      EK201      EK202      EOS_P         FA  FERRITINA
+#'  FOLATS        GGT        GOT        GPT      HBA1C        HCM      HEMAT      HEMOG
+#'  INR          K     LEUC_N     LINF_P       MDRD     NEUT_N     NEUT_P        PCR
+#'  PLAQ       PROT  PROTEINAs     Q70758         TG         TP TRAFERRINA        TSH
+#'  TT101      TT102      TT103     TU0013       URAT        VCM     VITB12 )}
 #' }
 "dt_variables"

@@ -9,7 +9,7 @@
 #' @return              Taula agregada analitiques
 #' @export
 #' @examples
-#' dtagr_variables<-agregar_analitiques(dt=dt_variables,bd.dindex=20081231,finestra.dies = c(-365,0))
+#' dtagr_variables<-agregar_analitiques(dt=dt_variables,bd.dindex=20220101,finestra.dies = c(-Inf,0))
 #' dtagr_variables
 
 agregar_analitiques<-function(dt="ANALITIQUES",bd.dindex="20161231",finestra.dies=c(-Inf,Inf),sufix = c(".valor", ".dies"),fun="last",camp="cod"){

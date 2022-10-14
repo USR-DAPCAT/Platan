@@ -45,8 +45,8 @@ Retorna tibble amb la suma d'envasos o data primera dispensació dins d'una fine
 
 dtagr_facturacio<-agregar_facturacio(
 dt=dt_facturacio,
-bd.dindex=20080120,
-finestra.dies=c(-90,0),
+bd.dindex=20220101,
+finestra.dies=c(-Inf,0),
 dt.agregadors=cataleg,
 prefix="FF.",
 camp_agregador="agr",

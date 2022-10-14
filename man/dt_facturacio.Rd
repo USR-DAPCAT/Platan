@@ -5,12 +5,12 @@
 \alias{dt_facturacio}
 \title{Bases de dades de medicaments facturats}
 \format{
-Una data frame amb 25 files i 4 variables
+Una data frame amb 4421 files i 5 variables
 \describe{
-\item{idp}{idp (1--5)}
-\item{cod}{codi (A10BA02 A10BB01 A10BD01 A10BD04 J01DD07 )}
-\item{dat}{data (200801--200802)}
-\item{env}{envasos (1--5)}
+\item{idp}{idp (1--30)}
+\item{cod}{codi (A10BA02 A10BB01 A10BD01 A10BD04 N05AL01 )}
+\item{dat}{data (201001--202012)}
+\item{env}{envasos (1--6)}
 }
 }
 \usage{
