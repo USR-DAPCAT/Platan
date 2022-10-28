@@ -26,6 +26,9 @@ agregar_analitiques<-function(dt="ANALITIQUES",bd.dindex="20161231",finestra.die
 
   print("Afegint dt.index")
 
+
+
+
   dt<-dt %>%dplyr::select(idp,dat,cod:=!!rlang::sym(camp),val)
 
   dt<-afegir_dataindex(dt,bd.dindex)
@@ -42,8 +45,18 @@ agregar_analitiques<-function(dt="ANALITIQUES",bd.dindex="20161231",finestra.die
 
   print("Filtrant dates")
 
+
+  #18.10.2022 (canvi)
+  # En cas de cap variable agregada genero NAs
+
+  dt_origen_NULL<-dt %>% dplyr::distinct(idp,dtindex,cod) %>%dplyr::mutate(val=NA) %>%  tidyr::spread(cod,val)
+
   dt<-dt %>% dplyr::filter(dat>= dtindex +finestra.dies[1] &
                              dat<= dtindex +finestra.dies[2])
+
+  # 18.10.2022 (canvi)
+  # Si dt te contingut fes
+  if (dim(dt)[1]>0) {
 
   print ("Seleccionant unic registre per variable-id")
 
@@ -112,6 +125,8 @@ agregar_analitiques<-function(dt="ANALITIQUES",bd.dindex="20161231",finestra.die
 
   # JOINT Valors i dies
   analitiques.idp<-dplyr::full_join(analitiques.valor, analitiques.dies, by=c("idp","dtindex"),suffix = sufix)
+
+  } else analitiques.idp<-dt_origen_NULL  # Si es buit assigno data index origen null
 
   analitiques.idp
 

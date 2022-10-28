@@ -52,6 +52,10 @@ Generar_taula_plana<-function(dt="dt_index",
 
 
 
+  # dt=dt_index
+  # cataleg=cataleg
+  # parametres=dt_parametres
+
   #dt=dt_index
   #cataleg=cataleg
   #parametres=dt_parametres
@@ -76,11 +80,16 @@ Generar_taula_plana<-function(dt="dt_index",
   # parametres = here::here("cataleg_codis.xls"),sheet="parametres_2010"
 
 
+  data.to.string<-function(data) {data.string=paste0(lubridate::year(data),
+                       stringr::str_pad(lubridate::month(data),2,"left","0"),
+                       stringr::str_pad(lubridate::day(data),2,"left","0"))}
+
+
   cataleg<-read_conductor(cataleg,col_types="text")
 
 
   parametres<-read_conductor(parametres,...)%>%dplyr::filter(!(is.na(fitxer)| is.na(domini)))
-  parametres<-read_conductor(parametres) %>%dplyr::filter(!(is.na(fitxer)| is.na(domini)))
+  #parametres<-read_conductor(parametres) %>%dplyr::filter(!(is.na(fitxer)| is.na(domini)))
 
   # parametres<-read_conductor(parametres,sheet="parametres_2010")
   # parametres<-read_conductor(fitxer_cataleg,sheet="parametres")

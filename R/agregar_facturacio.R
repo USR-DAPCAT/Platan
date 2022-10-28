@@ -158,16 +158,16 @@ agregar_facturacio<-function(dt="dt_facturacio",
   ##################
 
   # Aplanamenta
-  print("Aplanamenta")
-  dt_agregada<-dt_agregada %>%
-    tidyr::spread(agr,FX,sep=".") %>%
-    dplyr::mutate_if(is.numeric, dplyr::funs(ifelse(is.na(.), 0, .)))
-  # mutate_if(is.numeric, list(ifelse(is.na(.), 0, .)))
+  if (dim(dt_agregada)[1]>0) {
+    dt_agregada<-dt_agregada %>%
+      tidyr::spread(agr,FX,sep=".") %>%
+      dplyr::mutate_if(is.numeric, dplyr::funs(ifelse(is.na(.), 0, .)))
 
-  names(dt_agregada) <- sub("agr.", prefix, names(dt_agregada))   # Afegir prefix a noms de variables
+        names(dt_agregada) <- sub("agr.", prefix, names(dt_agregada))   # Afegir prefix a noms de variables
+
+  } else dt_agregada<-dt %>% dplyr::distinct(idp,dtindex) %>%dplyr:: mutate(dtindex=lubridate::ymd(dtindex))
 
   dt_agregada
 
+
 }
-
-
