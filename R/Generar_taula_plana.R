@@ -161,7 +161,7 @@ Generar_taula_plana<-function(dt="dt_index",
       purrr::reduce(dplyr::full_join,by=c("idp","dtindex")) %>%   # Juntar-ho tot
       dplyr::mutate(dtindex=lubridate::as_date(dtindex) %>% data.to.string)
 
-  } else DTAGR_PROBLEMES<-dt
+  } else DTAGR_PROBLEMES<-dt %>% dplyr::mutate(dtindex=as.character(dtindex))
 
 
   # FARMACS FACTURATS -------------------------------
@@ -199,7 +199,7 @@ Generar_taula_plana<-function(dt="dt_index",
       purrr::reduce(dplyr::full_join,by=c("idp","dtindex")) %>%  # Juntar-ho tot
       dplyr::mutate(dtindex=data.to.string(dtindex))
 
-  } else DTAGR_FARMACS<-dt
+  } else DTAGR_FARMACS<-dt%>% dplyr::mutate(dtindex=as.character(dtindex))
 
   # FARMACS PRESCRITS  -------------------------------
   # Seleccionar parametres i cataleg
@@ -234,7 +234,7 @@ Generar_taula_plana<-function(dt="dt_index",
       purrr::reduce(dplyr::full_join,by=c("idp","dtindex")) %>%  # Juntar-ho tot
       dplyr::mutate(dtindex=data.to.string(dtindex))
 
-  } else DTAGR_FARMACS_PR<-dt
+  } else DTAGR_FARMACS_PR<-dt%>% dplyr::mutate(dtindex=as.character(dtindex))
 
 
   # ANALITIQUES  quantis-------
@@ -285,7 +285,7 @@ Generar_taula_plana<-function(dt="dt_index",
       purrr::reduce(dplyr::full_join,by=c("idp","dtindex")) %>%  # Juntar-ho tot
       dplyr::mutate(dtindex=lubridate::as_date(dtindex) %>% data.to.string)
 
-  } else DTAGR_ANALITIQUES<-dt
+  } else DTAGR_ANALITIQUES<-dt%>% dplyr::mutate(dtindex=as.character(dtindex))
 
 
   #### ANALITIQUES character
