@@ -10,12 +10,13 @@ vignette: >
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
+  
   collapse = TRUE,
   comment = "#>"
 )
 ```
 ## Codigo de ejemplo
 
-```{r setup}
+```{r setup,include = TRUE}
 library(Platan)
 ```
