@@ -1,0 +1,21 @@
+---
+title: "Platan"
+author: "Ray Puig & Jordi Real"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Platan}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+## Codigo de ejemplo
+
+```{r setup}
+library(Platan)
+```

@@ -1,11 +1,11 @@
 Package: Platan
 Type: Package
-Title: conté les funcions necessàries,per aplanar una base de dades mèdica
+Title: conte les funcions necessaries,per aplanar una base de dades medica
 Version: 0.1.0
 Date: 2022-08-25
 Author: Ray Puig i Jordi Real
 Maintainer: Ray Puig <raypuig@gmail.com>
-Description: Platan és un Package que conté les funcions per aplanar una base de dades per la investigació mèdica.
+Description: Platan es un Package que conte les funcions per aplanar una base de dades per la investigacio medica.
 License: GPL(>=3)
 Encoding: UTF-8
 LazyData: true
@@ -32,11 +32,6 @@ Imports:
     devtools,
     stats
 Suggests:
+    rmarkdown,
     roxygen2
-
-
-
-
-
-
-
+VignetteBuilder: knitr

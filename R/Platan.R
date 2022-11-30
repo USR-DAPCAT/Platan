@@ -1,7 +1,7 @@
 #' Platan Package
 #'
-#' Platan és un Package que conté les funcions necessàries,
-#' per aplanar una base de dades per la investigació mèdica
+#' Platan es un Package que conte les funcions necessaries,
+#' per aplanar una base de dades per la investigació medica
 #'
 #' @docType package
 #'

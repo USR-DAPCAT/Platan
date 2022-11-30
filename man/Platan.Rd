@@ -5,8 +5,8 @@
 \alias{Platan}
 \title{Platan Package}
 \description{
-Platan és un Package que conté les funcions necessàries,
-per aplanar una base de dades per la investigació mèdica
+Platan es un Package que conte les funcions necessaries,
+per aplanar una base de dades per la investigació medica
 }
 \author{
 Jordi Real i Ray Puig\email{-raypuig@gmail.com-}
