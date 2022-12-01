@@ -19,6 +19,8 @@ knitr::opts_chunk$set(
 ```{r setup,include = TRUE}
 library(Platan)
 
+knitr::include_graphics("Platan.png")
+
 #devtools::install_github("USR-DAPCAT/Platan",build_vignettes = TRUE)
 #help(package = 'Platan', help_type = 'html')
 # or see a standalone list of vignettes
@@ -31,6 +33,9 @@ add <- function(a,b)
 
 
 add(10, 20)
+
+
+#images/week3/image-name-here.png
 
 
 
