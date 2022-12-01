@@ -81,9 +81,14 @@ library("compareGroups")
 dt_poblacio<-dt_poblacio%>%
   as_tibble()
 
+
+
 #ii)
 dt_variables<-dt_variables%>%
   as_tibble()
+
+dt_variables
+
 
 ```
 
@@ -96,6 +101,8 @@ dt_variables<-dt_variables%>%
 # 2 Data.Index -----------
 
 dt_poblacio<-dt_poblacio%>%mutate(sortida=as.integer(20221111))
+
+dt_poblacio
 
 dt_index<-
   dt_poblacio %>% select(idp,entrada,sortida) %>% mutate(kk=1)%>%
@@ -124,14 +131,20 @@ dt_index
 dt_diagnostics<-dt_diagnostics%>%
   as_tibble()
 
+dt_diagnostics
+
 #iv)
 dt_facturacio<-dt_facturacio%>%
   as_tibble()
+
+dt_facturacio
+
 
 #v)
 dt_prescripcions<-dt_prescripcions%>%
   as_tibble()
 
+dt_prescripcions
 
 ```
 
@@ -150,7 +163,7 @@ dtagr_diagnostics<-agregar_problemes(dplyr::select(dt_diagnostics,idp,cod,dat),
                                      finestra.dies=c(-Inf,0),prefix = "DG.",
                                      cataleg_mana=FALSE)
 
-
+dtagr_diagnostics
 
 
 #Agregacio Farmacs Facturats.
@@ -163,6 +176,8 @@ dtagr_facturacio<-agregar_facturacio(dt=dt_facturacio,
                                      agregar_data=FALSE,
                                      cataleg_mana=FALSE,
                                      acumular=NULL)
+dtagr_facturacio
+
 
 #Agregacio Farmacs Prescripcions.
 dtagr_prescripcions<-agregar_prescripcions(dt=dt_prescripcions,
@@ -174,11 +189,15 @@ dtagr_prescripcions<-agregar_prescripcions(dt=dt_prescripcions,
                                            agregar_data=FALSE,
                                            cataleg_mana =FALSE,
                                            acumular=NULL)
+dtagr_prescripcions
+
 
 #Agregacio Analitiques i Cliniques.
 dtagr_variables<-agregar_analitiques(dt=dt_variables,
                                      bd.dindex=20220101,
                                      finestra.dies = c(-Inf,0))
+dtagr_variables
+
 
 #traiem la data Index, per la posterior unificacio.
 
