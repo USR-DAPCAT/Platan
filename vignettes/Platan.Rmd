@@ -34,7 +34,7 @@ knitr::include_graphics("Platan.png")
 ```
 
 
-# FASE LECTURA
+##  Generacion de tabla plana 
 
 >> Generacion de tabla plana y aplicacion de los primeros criterios inclusion 
 
@@ -84,6 +84,7 @@ dt_variables<-dt_variables%>%
   as_tibble()
 
 ```
+
 ##2. Generar DataIndex Disseny Transversal
 ```{r generem la data_Index, include=F}
 
