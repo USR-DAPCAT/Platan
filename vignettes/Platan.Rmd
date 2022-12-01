@@ -33,11 +33,12 @@ knitr::include_graphics("Platan.png")
 
 ```
 
+
 # FASE LECTURA
 
 >> Generacion de tabla plana y aplicacion de los primeros criterios inclusion 
 
-```{r setup, include = FALSE}
+```{r setup2, include = FALSE}
 #rm(list=ls())
 #library(dplyr)
 
@@ -70,7 +71,7 @@ knitr::include_graphics("Platan.png")
 ```
 
 ## 1. Lectura previa DataIndex 
-```{r lectura1, include=T}
+```{r lectura1, ,include=FALSE}
 
 # 1 Lectura -----------
 
@@ -105,7 +106,7 @@ dt_index$dtindex<-as.character(dt_index$dtindex)
 
 ## 3. Lectura posterior a DataIndex 
 
-```{r lectura2, include=T}
+```{r lectura2, ,include=FALSE}
 
 # 3 Lectura posterior a DataIndex -----------
 
@@ -132,7 +133,7 @@ dt_prescripcions<-dt_prescripcions%>%
 
 ## 4. Agregacio dels nostres fitxers a partir del cataleg
 
-```{r agregacio, include=T}
+```{r agregacio, ,include=FALSE}
 
 # 4 Agregacio dels nostres fitxers a partir del cataleg -----------
 
@@ -191,7 +192,7 @@ dtagr_variables<-dtagr_variables%>%select(-dtindex)
 
 Fusionar part dels arxius agregats 
  
-```{r fusio1}
+```{r fusio1,include=TRUE}
 
 
 dt_plana1<-dt_index%>%
@@ -202,11 +203,12 @@ left_join(dt_poblacio,by="idp")%>%
       left_join(dtagr_variables,by="idp")
        
   
+dt_plana1
 
 
 ```
 ## 6. Generacio GranFuncio: Agregacio+Fusio i convertir a Taula Plana
-```{r GranFuncio,include=T}
+```{r GranFuncio,include=TRUE}
 
 #Parametres:
 
@@ -245,11 +247,14 @@ parametres=dt_parametres)
 dt_plana2<-dt_poblacio%>%
   left_join(KK,by="idp")
 
+dt_plana2
+
+
 ```
 
 
-## 3. Fase Analsis
-```{r analisis2}
+## 7. Fase Analsis
+```{r analisis2,include=TRUE,warning=FALSE}
 
 descrTable(dt_plana2)
 
