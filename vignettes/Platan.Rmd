@@ -10,13 +10,31 @@ vignette: >
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  
   collapse = TRUE,
   comment = "#>"
 )
 ```
-## Codigo de ejemplo
+## Codigo de PUTA ejemplo
 
 ```{r setup,include = TRUE}
 library(Platan)
+
+#devtools::install_github("USR-DAPCAT/Platan",build_vignettes = TRUE)
+#help(package = 'Platan', help_type = 'html')
+# or see a standalone list of vignettes
+#browseVignettes('Platan')
+
+# Add two numbers together
+add <- function(a,b) 
+  {a + b}
+
+
+
+add(10, 20)
+
+
+
+```
+
+
 ```
