@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-## Codigo de PUTA ejemplo
+## Codigo de ejemplo
 
 ```{r setup,include = TRUE}
 library(Platan)
