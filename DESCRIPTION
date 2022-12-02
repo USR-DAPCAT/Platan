@@ -30,7 +30,8 @@ Imports:
     magrittr,
     utils,
     devtools,
-    stats
+    stats,
+    compareGroups
 Suggests:
     rmarkdown,
     roxygen2

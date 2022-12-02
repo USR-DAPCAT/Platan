@@ -12,7 +12,12 @@
 #' dtagr_variables<-agregar_analitiques(dt=dt_variables,bd.dindex=20220101,finestra.dies = c(-Inf,0))
 #' dtagr_variables
 
-agregar_analitiques<-function(dt="ANALITIQUES",bd.dindex="20161231",finestra.dies=c(-Inf,Inf),sufix = c(".valor", ".dies"),fun="last",camp="cod"){
+agregar_analitiques<-function(dt="ANALITIQUES",
+                              bd.dindex="20161231",
+                              finestra.dies=c(-Inf,Inf),
+                              sufix = c(".valor", ".dies"),
+                              fun="last",
+                              camp="cod"){
 
   # dt =dt_temp
   # bd.dindex =dt_index
@@ -25,9 +30,6 @@ agregar_analitiques<-function(dt="ANALITIQUES",bd.dindex="20161231",finestra.die
   #rm(list=ls())
 
   print("Afegint dt.index")
-
-
-
 
   dt<-dt %>%dplyr::select(idp,dat,cod:=!!rlang::sym(camp),val)
 
@@ -49,10 +51,15 @@ agregar_analitiques<-function(dt="ANALITIQUES",bd.dindex="20161231",finestra.die
   #18.10.2022 (canvi)
   # En cas de cap variable agregada genero NAs
 
-  dt_origen_NULL<-dt %>% dplyr::distinct(idp,dtindex,cod) %>%dplyr::mutate(val=NA) %>%  tidyr::spread(cod,val)
+  dt_origen_NULL<-dt %>%
+     dplyr::distinct(idp,dtindex,cod)%>%
+       dplyr::mutate(val=NA)%>%
+         tidyr::spread(cod,val)
 
-  dt<-dt %>% dplyr::filter(dat>= dtindex +finestra.dies[1] &
-                             dat<= dtindex +finestra.dies[2])
+  dt<-dt %>%
+    dplyr::filter(dat>= dtindex +finestra.dies[1] & dat<= dtindex +finestra.dies[2])
+
+
 
   # 18.10.2022 (canvi)
   # Si dt te contingut fes
@@ -94,22 +101,22 @@ agregar_analitiques<-function(dt="ANALITIQUES",bd.dindex="20161231",finestra.die
 
   ### Agregacio per idp
   paco1<-paco %>%
-    dplyr::group_by(idp,dtindex,cod) %>%                                    # Agrupo
-    dplyr::mutate(val=funcioresum(val,dies)) %>%                   # Resum de valor
-    dplyr::slice(1L) %>%                                    # Unica fila per idp+cod
-    dplyr::ungroup()  %>%
-    dplyr::select(idp,cod,dtindex,val)
+    dplyr::group_by(idp,dtindex,cod) %>%                      # Agrupo
+      dplyr::mutate(val=funcioresum(val,dies)) %>%            # Resum de valor
+        dplyr::slice(1L) %>%                                  # Unica fila per idp+cod
+          dplyr::ungroup()  %>%
+            dplyr::select(idp,cod,dtindex,val)
+
 
   ### Agregacio de dies per idp
   paco2<-paco %>%
-    dplyr::group_by(idp,dtindex,cod) %>%                    # Agrupo
-    dplyr::mutate(dies=funcioresum_dies(val,dies)) %>%             # Resum de dies
-    dplyr::slice(1L) %>%                                    # Unica fila per idp+cod
-    dplyr::ungroup() %>%
-    dplyr::select(idp,cod,dtindex,dies)
+    dplyr::group_by(idp,dtindex,cod) %>%                      # Agrupo
+      dplyr::mutate(dies=funcioresum_dies(val,dies)) %>%      # Resum de dies
+       dplyr::slice(1L)%>%                                    # Unica fila per idp+cod
+        dplyr::ungroup() %>%
+          dplyr::select(idp,cod,dtindex,dies)
 
   paco<-paco1 %>% dplyr::left_join(paco2,by=c("idp","cod","dtindex"))
-
 
   print ("Reshaping")
 
