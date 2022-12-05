@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 
 ```{r setup1,include = TRUE,echo=FALSE,fig.align = 'center',out.width="15%"}
 
-knitr::include_graphics("logo_bio.jpg")
-knitr::include_graphics("logoDAP_Cat.PNG")
-knitr::include_graphics("logoIDIAP.PNG")
+knitr::include_graphics("logos_css/logo_bio.jpg")
+knitr::include_graphics("logos_css/logoDAP_Cat.PNG")
+knitr::include_graphics("logos_css/logoIDIAP.PNG")
 
 ```
 
