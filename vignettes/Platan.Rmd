@@ -1,7 +1,8 @@
 ---
-title: "Platan"
+title: "The Platan Package"
 author: "Ray Puig & Jordi Real"
-output: rmarkdown::html_vignette
+output:  rmarkdown::html_vignette
+date: '2022-12-05'
 vignette: >
   %\VignetteIndexEntry{Platan}
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,11 +16,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup1,include = TRUE,echo=FALSE,fig.align = 'center',out.width="15%"}
+```{r fig_caption,include = TRUE,fig.show = "hold",out.width="30%",fig.align = 'center',echo=FALSE}
 
-knitr::include_graphics("logos_css/logo_bio.jpg")
-knitr::include_graphics("logos_css/logoDAP_Cat.PNG")
-knitr::include_graphics("logos_css/logoIDIAP.PNG")
+knitr::include_graphics(c("logos_css/logo_bio.jpg"))
+
+#knitr::include_graphics(c("logos_css/logo_bio.jpg","logos_css/logoDAP_Cat.PNG","logos_css/logoIDIAP.PNG"))
+#knitr::include_graphics("logos_css/logoDAP_Cat.PNG")
+#knitr::include_graphics("logos_css/logoIDIAP.PNG")
+#knitr::include_graphics("https://discourse-cdn-sjc1.com/business4/uploads/default/original/2X/5/521809ca3e81d798ffa7af902a4e06a9b9f27d39.jpeg")
 
 ```
 
