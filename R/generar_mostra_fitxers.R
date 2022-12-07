@@ -74,7 +74,7 @@ generar_mostra_fitxers<-function(directori="data",
     llista_rds<-llista_de_fitxers %>% purrr::map(~LLEGIR.fitxer(n=Inf,directori = directori,fitxer=.x))
 
     # Filtrar via semijoint de tota la llista
-    llista_rds_redux<-llista_rds %>% purrr::map(~semi_join(.x,dt_ids))
+    llista_rds_redux<-llista_rds %>% purrr::map(~dplyr::semi_join(.x,dt_ids))
 
     # Ara salvar-los en un surbdirectori amb el nom triat
 
