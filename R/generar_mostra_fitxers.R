@@ -70,9 +70,13 @@ generar_mostra_fitxers<-function(directori="data",
     llista_de_fitxers<-stats::setNames(llista_de_fitxers,llista_de_fitxers)
     # Llegir fitxers complerts
 
-
     llista_rds<-llista_de_fitxers %>% purrr::map(~LLEGIR.fitxer(n=Inf,directori = directori,fitxer=.x))
 
+    # Si No te ids que l'elimini de la llista de fitxers a clonar i actualitzi llista de noms
+    existeix_id_en_fitxer<-function(fitxer) {idp%in%names(fitxer)}
+    llista_rds<-purrr::keep(llista_rds,~existeix_id_en_fitxer(.x)) 
+    llista_de_fitxers<-purrr::keep(llista_de_fitxers, ~.x%in%names(llista_rds))
+    
     # Filtrar via semijoint de tota la llista
     llista_rds_redux<-llista_rds %>% purrr::map(~dplyr::semi_join(.x,dt_ids))
 
