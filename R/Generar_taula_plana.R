@@ -32,14 +32,14 @@
 #'
 #' Taula_plana<-Generar_taula_plana(
 #' dt=dt_index,
-#' cataleg=cataleg,
+#' cataleg=cataleg_test,
 #' parametres=dt_parametres)
 #'
 #' Taula_plana
 #'
 #' Taula_plana2<-Generar_taula_plana(
 #' dt=dt_index,
-#' cataleg=dt_cataleg,
+#' cataleg=dt_cataleg_test,
 #' parametres=dt_parametres)
 #'
 #' Taula_plana2

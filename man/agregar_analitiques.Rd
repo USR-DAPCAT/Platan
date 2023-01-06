@@ -33,6 +33,7 @@ Taula agregada analitiques
 Retorna tibble amb els valors analitiques en temps previ en dies.
 }
 \examples{
-dtagr_variables<-agregar_analitiques(dt=dt_variables,bd.dindex=20220101,finestra.dies = c(-Inf,0))
+dtagr_variables<-agregar_analitiques(dt=dt_variables_test,
+bd.dindex=20220101,finestra.dies = c(-Inf,0))
 dtagr_variables
 }

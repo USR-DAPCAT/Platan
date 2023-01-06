@@ -44,10 +44,10 @@ Retorna tibble (data.table) amb el temps de prescripció en una finestra o prime
 \examples{
 
 dtagr_prescripcions<-agregar_prescripcions(
-dt=dt_prescripcions,
+dt=dt_prescripcions_test,
 bd.dindex=20220101,
 finestra.dies=c(-Inf,0),
-dt.agregadors=cataleg,
+dt.agregadors=cataleg_test,
 prefix="FP.",
 camp_agregador="agr",
 agregar_data=TRUE,

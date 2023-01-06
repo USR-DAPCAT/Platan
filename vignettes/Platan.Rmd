@@ -107,14 +107,14 @@ library("compareGroups")
 # 1 Lectura -----------
 
 #i)
-dt_poblacio<-dt_poblacio%>%
+dt_poblacio_test<-dt_poblacio_test%>%
   as_tibble()
 
 #ii)
-dt_variables<-dt_variables%>%
+dt_variables_test<-dt_variables_test%>%
   as_tibble()
 
-dt_variables
+dt_variables_test
 
 
 ```
@@ -124,12 +124,12 @@ dt_variables
 
 # 2 Data.Index -----------
 
-dt_poblacio<-dt_poblacio%>%mutate(sortida=as.integer(20221111))
+dt_poblacio_test<-dt_poblacio_test%>%mutate(sortida=as.integer(20221111))
 
-dt_poblacio
+dt_poblacio_test
 
 dt_index<-
-  dt_poblacio %>% select(idp,entrada,sortida) %>% mutate(kk=1)%>%
+  dt_poblacio_test %>% select(idp,entrada,sortida) %>% mutate(kk=1)%>%
   left_join(tibble(dtindex=seq(20221111,20221111,by=10000),kk=1),by="kk")%>%
   filter(entrada<=dtindex & dtindex<=sortida)  %>%  # Filtro per usuari actiu en data index
   select(-c(kk,entrada,sortida))
@@ -150,23 +150,23 @@ dt_index
 
 
 #iii)
-dt_diagnostics<-dt_diagnostics%>%
+dt_diagnostics_test<-dt_diagnostics_test%>%
   as_tibble()
 
-dt_diagnostics
+dt_diagnostics_test
 
 #iv)
-dt_facturacio<-dt_facturacio%>%
+dt_facturacio_test<-dt_facturacio_test%>%
   as_tibble()
 
-dt_facturacio
+dt_facturacio_test
 
 
 #v)
-dt_prescripcions<-dt_prescripcions%>%
+dt_prescripcions_test<-dt_prescripcions_test%>%
   as_tibble()
 
-dt_prescripcions
+dt_prescripcions_test
 
 ```
 ## 4. Agregacio dels nostres fitxers a partir del cataleg
@@ -176,9 +176,9 @@ dt_prescripcions
 
 
 #Agregacio Problemes de Salut.
-dtagr_diagnostics<-agregar_problemes(dplyr::select(dt_diagnostics,idp,cod,dat),
+dtagr_diagnostics<-agregar_problemes(dplyr::select(dt_diagnostics_test,idp,cod,dat),
                                      bd.dindex = dt_index,
-                                     dt.agregadors=cataleg,
+                                     dt.agregadors=cataleg_test,
                                      finestra.dies=c(-Inf,0),prefix = "DG.",
                                      cataleg_mana=FALSE)
 
@@ -186,10 +186,10 @@ dtagr_diagnostics
 
 
 #Agregacio Farmacs Facturats.
-dtagr_facturacio<-agregar_facturacio(dt=dt_facturacio,
+dtagr_facturacio<-agregar_facturacio(dt=dt_facturacio_test,
                                      bd.dindex=20220101,
                                      finestra.dies=c(-Inf,0),
-                                     dt.agregadors=cataleg,
+                                     dt.agregadors=cataleg_test,
                                      prefix="FF.",
                                      camp_agregador="agr",
                                      agregar_data=FALSE,
@@ -199,10 +199,10 @@ dtagr_facturacio
 
 
 #Agregacio Farmacs Prescripcions.
-dtagr_prescripcions<-agregar_prescripcions(dt=dt_prescripcions,
+dtagr_prescripcions<-agregar_prescripcions(dt=dt_prescripcions_test,
                                            bd.dindex=20220101,
                                            finestra.dies=c(-Inf,0),
-                                           dt.agregadors=cataleg,
+                                           dt.agregadors=cataleg_test,
                                            prefix="FP.",
                                            camp_agregador="agr",
                                            agregar_data=FALSE,
@@ -212,7 +212,7 @@ dtagr_prescripcions
 
 
 #Agregacio Analitiques i Cliniques.
-dtagr_variables<-agregar_analitiques(dt=dt_variables,
+dtagr_variables<-agregar_analitiques(dt=dt_variables_test,
                                      bd.dindex=20220101,
                                      finestra.dies = c(-Inf,0))
 dtagr_variables
@@ -237,7 +237,7 @@ Fusionar part dels arxius agregats
 
 
 dt_plana1<-dt_index%>%
-left_join(dt_poblacio,by="idp")%>%
+left_join(dt_poblacio_test,by="idp")%>%
   left_join(dtagr_diagnostics,by="idp")%>%
     left_join(dtagr_facturacio,by="idp")%>%
      left_join(dtagr_prescripcions,by="idp")%>%
@@ -282,10 +282,10 @@ dt_parametres
 
 KK<-Generar_taula_plana(
 dt=dt_index,
-cataleg=cataleg,
+cataleg=cataleg_test,
 parametres=dt_parametres)
 
-dt_plana2<-dt_poblacio%>%
+dt_plana2<-dt_poblacio_test%>%
   left_join(KK,by="idp")
 
 dt_plana2

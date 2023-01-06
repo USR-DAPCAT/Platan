@@ -19,6 +19,6 @@ Afegeix data index Dinamica o / Constant si no existeix
 }
 \examples{
 
-variables_dtindex<-afegir_dataindex(dt_variables,bd.dindex=20081231)
+variables_dtindex<-afegir_dataindex(dt_variables_test,bd.dindex=20081231)
 variables_dtindex
 }

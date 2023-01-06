@@ -13,9 +13,9 @@
 #' @importFrom           dplyr "%>%"
 #' @examples
 #'
-#' dtagr_diagnostics<-agregar_problemes(dplyr::select(dt_diagnostics,idp,cod,dat),
+#' dtagr_diagnostics<-agregar_problemes(dplyr::select(dt_diagnostics_test,idp,cod,dat),
 #' bd.dindex = 20220101,
-#' dt.agregadors=cataleg,
+#' dt.agregadors=cataleg_test,
 #' finestra.dies=c(-Inf,0),prefix = "DG.",
 #' cataleg_mana=TRUE)
 #'
